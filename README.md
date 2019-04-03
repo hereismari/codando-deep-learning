@@ -1,6 +1,6 @@
 # Codando Deep Learning :computer::thinking::brazil:
 
-Este repositório contém o código utilizado para o curso "Codando Deep Learning".
+Este repositório contém o código utilizado para o curso "Codando Deep Learning" [Work In progress].
 
 ## Sobre
 
