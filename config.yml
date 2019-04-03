@@ -1,0 +1,70 @@
+# The name of the project shown in the navigation bar (it links to the
+# home page).
+name: "Codando Deep Learning"
+
+# Link to the source repository (e.g., on Github, Gitlab).
+repo: "http://github.com/mari-linhares/codando-deep-learning"
+
+# Footer added to the bottom of some webpages.
+footer: "&copy; 2019 Marianne Linhares, Arnaldo Gualberto"
+
+# When set to True, populate the footer of each notebook with the git
+# commit id (SHA1) and commit modification date.
+add_commit_info: False
+
+# These subdirectories contain Jupyter notebooks that will be rendered
+# into webpages.
+include_dir: ["notebooks"]
+
+# Do not add links in the navigation bar for the Jupyter notebooks in
+# these subdirectories.
+hide_navbar: []
+
+# Any Jupyter notebooks listed here will not be rendered into webpages
+# (e.g., "notebooks/temp.ipynb").
+exclude_file: []
+
+# This is the notebook used to generate the home page for the
+# website. If no home page is set, an Overview.ipynb file is
+# automatically generated and saved in the base project directory.
+homepage: "notebooks/index.ipynb"
+
+# The name of the homepage link shown in the navigation bar.
+# Set to NULL to hide it
+homepage_label: NULL
+
+# The name of the link to the source repository. It is shown in the
+# top-right corner of the navigation bar. Set it to NULL to hide it.
+# If this line is removed or commented out, then the default is to 
+# show a Github logo (the "Octocat"). 
+source_label: "Github"
+
+# Bootstrap theme. Current supported themes are "cerulean", "flatly"
+# and "readable"; see the docs/css directory.
+theme: "readable"
+
+# Font used to show all code and text in the Jupyter notebooks (e.g.,
+# "Droid Sans"). Set to NULL to inherit the font used by the Bootsrap
+# theme.
+font: NULL
+
+# Set to True to add a table-of-contents (TOC) to the left-hand side
+# of each of the Jupyter notebook webpages; otherwise, set to False.
+notebook_toc: True
+
+# Set this variable to enable auto-commit.
+# release_message: "Build website with jnbinder."
+
+# When set to `True` the automatically generated index pages will use
+# the entire first paragraph of each notebook as page summary.
+# long_autoindex: False 
+
+# Directories for which the order of auto-index entries are reversed. 
+# reverse_autoindex: []
+
+# When set to `True` the empty lines in HTML will be removed. This will
+# make code blocks more compact.
+# remove_whiteline: False
+
+# Load a list of password protected folders / pages and their passwords
+password_file: .passwd

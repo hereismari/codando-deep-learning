@@ -1,0 +1,4 @@
+*.pyc
+**/.sos
+**/.ipynb_checkpoints
+**/__pycache__
