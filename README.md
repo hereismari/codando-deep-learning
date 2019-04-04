@@ -2,21 +2,29 @@
 
 Este repositório contém o código utilizado para o curso "Codando Deep Learning" [Work In progress].
 
+## Autores
+
+* Marianne Linhares Monteiro (github: mari-linhares, twitter: hereismari).
+* Arnaldo Gualberto (github: arnaldog12)
+
 ## Sobre
 
 Implementações de conceitos relacionados com Machine Learning e Deep Learning do zero!
 
-Repositório com código para o tutorial *Codando Deep Learning*. Este repositório contém conceitos relacionados com Machine Learning e Deep Learning implementados em Jupyter notebooks utilizando Python 3 O código é feito para facilitar o ensino e aprendizado. Todos os comentários e instrunções estão em português (código em inglês).
+Repositório com código para o tutorial *Codando Deep Learning*. Este repositório contém conceitos relacionados com Machine Learning e Deep Learning implementados em Jupyter notebooks utilizando Python 3. O código é feito para facilitar o ensino e aprendizado.
 
 Contribuições são muito bem vindas!
 
+
 ## Rodando localmente
 
-Você pode rodar os notebooks separadamente na maneira convencional de um jupyter notebook:
+Você pode rodar os notebooksna maneira convencional de um jupyter notebook:
 
 1. Instale as dependências necessárias: `pip install -r requirements.txt`
 2. Instale jupyter notebook
 3. execute: `jupyter notebook`
+
+Todos os notebooks utilizados nos tutorials estão na pasta [notebooks/](notebooks/).
 
 ## Atualizando a versão web
 
@@ -26,7 +34,7 @@ pip3 install sos-essentials
 ./release.sos -s force
 ```
 
-As novas páginas serão geradas e podem ser acessadas em `docs/index.html`.
+As novas páginas serão geradas e podem ser acessadas na pasta [docs/](docs/).
 
 ## Créditos do template utilizado para o site
 
