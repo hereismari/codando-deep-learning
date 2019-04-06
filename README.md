@@ -30,8 +30,7 @@ Todos os notebooks utilizados nos tutorials estão na pasta [notebooks/](noteboo
 
 ```bash
 pip3 install sos-essentials
-./release.sos clean
-./release.sos -s force
+./release.sh
 ```
 
 As novas páginas serão geradas e podem ser acessadas na pasta [docs/](docs/).

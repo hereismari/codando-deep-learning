@@ -289,7 +289,7 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introdu&#231;&#227;o-a-redes-neurais">Introdu&#231;&#227;o a redes neurais<a class="anchor-link" href="#Introdu&#231;&#227;o-a-redes-neurais">&#182;</a></h2><p>Esse conteúdo é bastante inspirado no <a href="https://github.com/iamtrask/Grokking-Deep-Learning">Capítulo 3</a> de Grokking Deep Learning.</p>
+<h2 id="Introdu&#231;&#227;o-&#224;-Redes-Neurais">Introdu&#231;&#227;o &#224; Redes Neurais<a class="anchor-link" href="#Introdu&#231;&#227;o-&#224;-Redes-Neurais">&#182;</a></h2><p>Esse conteúdo é bastante inspirado no <a href="https://github.com/iamtrask/Grokking-Deep-Learning">Capítulo 3</a> de Grokking Deep Learning.</p>
 
 </div>
 </div>
@@ -297,7 +297,10 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Redes neurais podem ser vistas de maneira bastante simplificadas como <strong>funções matemáticas</strong>. Desse modo, similar à funções as redes neurais recebem uma ou mais entradas e a mapeiam para uma ou mais saídas. Aqui, mapear = realizar computação.</p>
+<p>Redes neurais podem ser vistas de maneira bastante simplificadas como <strong>funções matemáticas</strong>. De fato, se eu tivesse que definir redes neurais com apenas uma frase, seria:</p>
+<blockquote><p>"Redes Neurais são <em>aproximadores de função</em>"</p>
+</blockquote>
+<p>Desse modo, similar à funções, as redes neurais recebem uma ou mais entradas e a mapeiam para uma ou mais saídas. Aqui, mapear = realizar computação.</p>
 
 </div>
 </div>
@@ -305,7 +308,7 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Falando em Deep Learning, essas entradas são normalmente <strong>tensores</strong>, isto é, vetores de diferentes dimensões.</p>
+<p>Falando em Deep Learning, essas entradas são normalmente <strong>tensores</strong>, isto é, vetores de diferentes dimensões. De maneira matemática, você pode pensar em tensores da seguinte forma:</p>
 
 </div>
 </div>
@@ -322,7 +325,46 @@ Imagem de: <a href="https://www.kdnuggets.com/2018/05/wtf-tensor.html">https://w
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Tensor, <a href="https://www.youtube.com/watch?v=f5liqUk0ZTw"><strong>em Deep Learning</strong></a>, é um nome bonito para vetores multi-dimensionais, onde um tensor de uma dimensão é um escalar, com duas dimensões vetor, 3 dimensões é uma matriz, e N dimensões onde N &gt; 3 não há nomencaltura específica.</p>
+<p>Já os matemáticos que gostam de cachorros, preferem pensar em tensores da seguinte forma:</p>
+<p><img src="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg" alt="">
+Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Na prática, um <strong>scalar</strong> é apenas um valor (0-dimensional); um <strong>vetor</strong> é um array de scalares (uni-dimensional); uma <strong>matriz</strong> é um array de vetores (bi-dimensional); e um <strong>tensor</strong> é qualquer vetor com N-dimensões (por exemplo, um cubo é um tensor de 3 dimensões). Vale salientar que, tecnicamente, o conceito de tensor engloba todos eles. Porém, na prática, chamamos de tensores os vetores com 3 ou mais dimensões. Veja <a href="https://www.youtube.com/watch?v=f5liqUk0ZTw"><strong>esse vídeo</strong></a> para mais detalhes.</p>
+<p>Ainda pensando dessa forma, poderíamos imaginar um tensor 4-dimensional como um <strong>array de cubos</strong>; um tensor 5-dimensional seria uma <strong>matriz de cubos</strong>; um tensor 6-dimensional seria um <strong>cubo de cubos</strong>, e assim por diante...</p>
+<p><img align='center' src='https://media3.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif'></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Hist&#243;ria-das-Redes-Neurais">Hist&#243;ria das Redes Neurais<a class="anchor-link" href="#Hist&#243;ria-das-Redes-Neurais">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A história das redes neurais é curiosa, engraçada e triste ao mesmo tempo.</p>
+<p>Certo dia, em 1958, um certo cientista nova-yorkino, inspirado pelo trabalho de seus colegas que estudavam sobre o cérebro humano, terminou de projetar um algoritmo que conseguia aprender sozinho a resolver problemas simples. Nascia ali, o <strong>Perceptron</strong>. Em sua estrutura básica, o Perceptron é formado por 3 partes:</p>
+<p><img align='center' src='https://github.com/arnaldog12/Manual-Pratico-Deep-Learning/raw/2d4adc1a095b815d523cf1d84ba3422c8c30ae1d/images/perceptron.png' width=400></p>
+<ul>
+<li><strong>entradas</strong> $x_1,...,x_D$: representam os atributos dos seus dados com dimensionalidade $D$. O Perceptron aceita qualquer tamanho de entrada, porém a saída é sempre apenas um valor.</li>
+<li><strong>junção aditiva</strong> $\sum$: também chamada de <em>função agregadora</em>, nada mais é que a soma ponderada das entradas com os <strong>pesos</strong> ($w_1,...,w_D)$. Em geral, o resultado é somado com um <strong>bias</strong> $b$, responsável por deslocar o resultado do somatório. A junção aditiva é descrita pela seguinte fórmula:</li>
+</ul>
+$$\sum_i^D{x_iw_i} + b$$<ul>
+<li><strong>função de ativação</strong> $f$: utilizada para mapear o resultado da junção aditiva em uma saída esperada. No caso do Perceptron, ela é a função <em>step</em> (também conhecida como <em>função degrau</em>) para mapear a saída em um valor discreto (0 ou 1):</li>
+</ul>
+$$f = \begin{cases}1 &amp; se \ wx+b &gt; 0\\0 &amp; caso \ contr\acute ario\end{cases}$$<p>A ideia inicial do Perceptron, na verdade, era ser uma máquina ao invés de um programa. E foi o que aconteceu. Utilizando o poderosíssimo <a href="https://en.wikipedia.org/wiki/IBM_704">IBM 704</a> que fazia 12 mil adições por segundo (só para você ter uma noção, um iPhone 7 faz 300 bilhões) os caras construíram uma máquina denominada <strong>Mark I Perceptron</strong>.</p>
+<p><img align='center' src='images/mark_i.jpg' width=600></p>
+<p>A ideia do Mark I Perceptron era que, para uma dada imagem de entrada, a máquina deveria aprender sozinha a classificar a saída em 0 ou 1. Mas, calma, nem imagens existiam naquela época! Então, como projetaram isso? Os cientistas na época conectaram 400 foto-células a entrada do Mark I para simular uma imagem 20x20 (um pouco maior talvez do que as letras desse texto). E para permitir a calibração da máquina, cada entrada dessa era conectada a um potenciômetro (que simulavam os pesos) que eram ajustados automaticamente por motores elétricos para mapear as entradas na saída final 0 ou 1.</p>
 
 </div>
 </div>
