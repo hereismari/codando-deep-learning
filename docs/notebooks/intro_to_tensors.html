@@ -1,7 +1,4 @@
-{%- extends 'basic.tpl' -%}
 
-{%- block header -%}
-{{ super() }}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -192,14 +189,133 @@ body {
       </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Depend&#234;ncias">Depend&#234;ncias<a class="anchor-link" href="#Depend&#234;ncias">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Gráficos</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># Matemática</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="c1"># Manipulação de Vetores</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-{%- endblock header -%}
+<span class="c1"># Fixar números aleatórios gerados</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-{% block footer %}
+<span class="c1"># Trabalhar com dados</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets.mldata</span> <span class="k">import</span> <span class="n">fetch_mldata</span>
+
+<span class="c1"># Utilidades</span>
+<span class="kn">import</span> <span class="nn">utils</span>
+
+<span class="c1"># Recarregar automaticamente dependências caso elas mudem</span>
+<span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introdu&#231;&#227;o-&#224;-Tensores">Introdu&#231;&#227;o &#224; Tensores<a class="anchor-link" href="#Introdu&#231;&#227;o-&#224;-Tensores">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Falando em Deep Learning, essas entradas são normalmente <strong>tensores</strong>, isto é, vetores de diferentes dimensões. De maneira matemática, você pode pensar em tensores da seguinte forma:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="https://www.kdnuggets.com/wp-content/uploads/scalar-vector-matrix-tensor.jpg" alt="">
+Imagem de: <a href="https://www.kdnuggets.com/2018/05/wtf-tensor.html">https://www.kdnuggets.com/2018/05/wtf-tensor.html</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Já os matemáticos que gostam de cachorros, preferem pensar em tensores da seguinte forma:</p>
+<p><img src="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg" alt="">
+Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Na prática, um <strong>scalar</strong> é apenas um valor (0-dimensional); um <strong>vetor</strong> é um array de scalares (uni-dimensional); uma <strong>matriz</strong> é um array de vetores (bi-dimensional); e um <strong>tensor</strong> é qualquer vetor com N-dimensões (por exemplo, um cubo é um tensor de 3 dimensões). Vale salientar que, tecnicamente, o conceito de tensor engloba todos eles. Porém, na prática, chamamos de tensores os vetores com 3 ou mais dimensões. Veja <a href="https://www.youtube.com/watch?v=f5liqUk0ZTw"><strong>esse vídeo</strong></a> para mais detalhes.</p>
+<p>Ainda pensando dessa forma, poderíamos imaginar um tensor 4-dimensional como um <strong>array de cubos</strong>; um tensor 5-dimensional seria uma <strong>matriz de cubos</strong>; um tensor 6-dimensional seria um <strong>cubo de cubos</strong>, e assim por diante...</p>
+<p><img align='center' src='https://media3.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif'></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Refer&#234;ncias">Refer&#234;ncias<a class="anchor-link" href="#Refer&#234;ncias">&#182;</a></h2><p>Este conteúdo é baseado nos seguintes materiais:</p>
+
+</div>
+</div>
+</div>
 <hr>
 &copy; 2019 Marianne Linhares, Arnaldo Gualberto
+
 </div>
 </div>
 </body>
 </html>
-{% endblock %}

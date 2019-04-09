@@ -50,7 +50,7 @@ font: NULL
 
 # Set to True to add a table-of-contents (TOC) to the left-hand side
 # of each of the Jupyter notebook webpages; otherwise, set to False.
-notebook_toc: True
+notebook_toc: False
 
 # Set this variable to enable auto-commit.
 # release_message: "Build website with jnbinder."

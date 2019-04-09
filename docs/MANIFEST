@@ -4,4 +4,5 @@ docs/js/docs.js
 docs/notebooks.html
 docs/notebooks.tpl
 docs/notebooks/intro_to_neural_nets.html
+docs/notebooks/intro_to_tensors.html
 docs/notebooks/neural_nets.html
