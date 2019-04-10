@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="ipynb_website:version" content="0.9.6" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Codando Deep Learning</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="site_libs/highlightjs-1.1/textmate.css"
+      type="text/css" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<style type="text/css">
+  div.input_prompt {display: none;}
+  div.output_html {
+     font-family: "PT Mono", monospace;
+     font-size: 10.0pt;
+     color: #353535;
+     padding-bottom: 25px;
+ }
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'] ["\\[","\\]"] ],
+        processEscapes: true
+        },
+        "HTML-CSS": {
+            preferredFont: "TeX",
+            availableFonts: ["TeX"],
+            styles: {
+                scale: 110,
+                ".MathJax_Display": {
+                    "font-size": "110%",
+                }
+            }
+        }
+    });
+</script>
+
+</head>
+
+<body>
+<style type = "text/css">
+@font-face {
+ font-family: 'Droid Sans';
+ font-weight: normal;
+ font-style: normal;
+ src: local('Droid Sans'), url('fonts/droid-sans.ttf') format('truetype');
+}
+@font-face {
+ font-family: 'Fira Code';
+ font-weight: normal;
+ font-style: normal;
+ src: local('Fira Code'), url('fonts/firacode.otf') format('opentype');
+}
+@font-face {
+ font-family: 'PT Mono';
+ font-weight: normal;
+ font-style: normal;
+ src: local('PT Mono'), url('fonts/ptmono.ttf') format('truetype');
+}
+
+body {
+  
+  font-size: 160%;
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 20px;
+ }
+
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: hidden;
+}
+
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Codando Deep Learning</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+<li>
+  <a href="./notebooks.html">Notebooks</a>
+</li>
+        
+      </ul>
+    
+<ul class="nav navbar-nav navbar-right">
+<li>
+   <a href="http://github.com/mari-linhares/codando-deep-learning"> Github </a>
+</li>
+</ul>
+        
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Codando-Deep-Learning">Codando Deep Learning<a class="anchor-link" href="#Codando-Deep-Learning">&#182;</a></h1><p><strong>Autores:</strong> <a href="http://mari-linhares.github.io">Marianne Linhares Monteiro</a>, <a href="https://github.com/arnaldog12">Arnaldo Gualberto</a><br>
+<strong>Data da última edição:</strong> Abril, 2019 <br>
+<strong>Notebooks utilizados durante o curso:</strong> <a href="https://github.com/mari-linhares/codando-deep-learning">https://github.com/mari-linhares/codando-deep-learning</a></p>
+<p><img align='center' src='http://houseofbots.com/images/news/3194/cover.png' width='350'> <br></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Motiva&#231;&#227;o">Motiva&#231;&#227;o<a class="anchor-link" href="#Motiva&#231;&#227;o">&#182;</a></h2><p>Vários especialistas e pesquisadores experientes na área de Deep Learning apoiam a ideia de que a melhor forma de aprender os conceitos fundamentais de uma determinada área é <strong>na prática</strong>. Isto é, na medida que vamos sendo expostos a novos conceitos, implementá-los para de fato entendê-los.</p>
+<blockquote><p><em>By far the best strategy for learning a lot that I discovered was to reimplement everything. I happened to do a lot of it in Javascript for lols. Whenever I read something I fall into an illusion of understanding it and forcing myself to reimplement it always uncovers interesting insights. It’s my favorite way to learn.</em> - <a href="https://www.quora.com/What-was-your-path-toward-ML-DL-What-books-did-you-enjoy-most-while-learning-DL">Andrej Kaparthy, Diretor de IA da Tesla</a></p>
+<p><em>This is the most extensive list of &quot;From Scratch Machine Learning&quot; I&#39;ve ever seen - this is a golden resource if your learn like I do (by building things from scratch). <a href="https://t.co/LcoPAQBULv">https://t.co/LcoPAQBULv</a></em> - <a href="https://twitter.com/iamtrask/status/1034376270128267264?ref_src=twsrc%5Etfw">Trask (@iamtrask), Líder da OpenMined, Pesquisador na DeepMind</a></p>
+</blockquote>
+<p>A verdade é que ter acesso ao ensino de Deep Learning se tornou extremamente fácil, porém agora o problema é outro: "por onde devo seguir? livros? vídeos? artigos? frameworks?". Aqui, iremos utilizar a abordagem de ensinar conceitos de Deep Learning <strong>para programadoras(es)</strong> da maneira que você já deve estar habituada(o): <strong>programando do zero!</strong>.</p>
+<h2 id="Sobre-o-curso">Sobre o curso<a class="anchor-link" href="#Sobre-o-curso">&#182;</a></h2><p>Aprender um conceito de maneira profunda (🥁 tun dun tisss) ainda é difícil e é uma tarefa que exige rigor e disciplina.</p>
+<p>Os materiais disponíveis nesse site buscam apresentar conceitos básicos e avançados junto a uma implementação detalhada e de fácil entendimento. Para tal não utilizaremos nenhum <a href="https://www.youtube.com/watch?v=SJldOOs4vB8">framework de Deep Learning</a> apenas <strong>Python</strong>. O objetivo do curso não é transformar um programador(a) em um(a) <em>"Machine Learning enginneer"</em> mas sim um excelente material para quem quer entender o funcionamento destas técnicas nos mínimos detalhes.</p>
+<p>Junto do código + explicação são apresentados sugestões de exercícios, blogs, artigos, vídeos.</p>
+<p><a href="bit.ly/awesome-dl">Quer apenas materiais?</a><br>
+<a href="https://github.com/mari-linhares/codando-deep-learning/tree/master/notebooks">Quer ir direto ao código?</a></p>
+<h2 id="Prov&#225;vel-estrutura-do-curso">Prov&#225;vel estrutura do curso<a class="anchor-link" href="#Prov&#225;vel-estrutura-do-curso">&#182;</a></h2><p><strong>Atenção: a ideia ainda está em processo, tem sugestões? Quer ajudar? Crie um issue/PR no repositório!</strong></p>
+<hr>
+<ol>
+<li><p>Introdução à Redes Neurais<br>
+ 1.1. <a href="https://mari-linhares.github.io/codando-deep-learning/notebooks/intro_to_neural_nets.html">O que são ?</a><br>
+ 1.2. <a href="https://mari-linhares.github.io/codando-deep-learning/notebooks/intro_to_tensors.html">Do que se alimentam ?</a><br>
+ 1.3. Como aprendem ?<br>
+ 1.4. <a href="https://mari-linhares.github.io/codando-deep-learning/notebooks/neural_nets.html">MultiLayerPerceptron - MLP</a><br>
+ 1.5. Funções de ativação<br>
+ 1.6. Algoritmos de otimização<br>
+ 1.7. Desafio</p>
+</li>
+<li><p>Introdução à Redes Neurais Convolucionais<br>
+ 2.1. O que são?<br>
+ 2.2. Convolução<br>
+ 2.3. Pooling<br>
+ 2.4. Batch Norm<br>
+ 2.5. Dropout<br>
+ 2.6. Implementação<br>
+ 2.7. Desafio</p>
+</li>
+<li><p>Introdução à Redes Neurais Recorrentes
+ 3.1. O que são?<br>
+ 3.2. RNN Simples<br>
+ 3.3. Vanish gradients<br>
+ 3.4. LSTM<br>
+ 3.5. GRU<br>
+ 3.6. Attention is all you need<br>
+ 3.7. Desafio</p>
+</li>
+<li><p>Introdução a AutoEncoders<br>
+ 4.1. O que são? É de comer?<br>
+ 4.2. AutoEncoder e Denoising AutoEncoder<br>
+ 4.3. Variational AutoEncoder<br>
+ 4.4. Desafio</p>
+</li>
+<li><p>Introdução à GANs<br>
+ 5.1. O que são? Mas o Axel não tinha saído?<br>
+ 5.2. Tipos de GANs<br>
+ 5.3. GAN simples<br>
+ 5.4. DCGAN<br>
+ 5.5. Desafios ao treinar GANs<br>
+ 5.6. Desafio</p>
+</li>
+<li><p>Limpeza e tratamento de dados para Deep Learning<br>
+ 6.1. Mamãe, quero ser cientista de dados<br>
+ 6.2. Normalização<br>
+ 6.3. Limpando Imagem<br>
+ 6.4. Limpando Texto<br>
+ 6.5. Data Augmentation</p>
+</li>
+</ol>
+<hr>
+
+</div>
+</div>
+</div>
+<hr>
+&copy; 2019 Marianne Linhares, Arnaldo Gualberto
+<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
+
+</div>
+
+<script>
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+</html>
