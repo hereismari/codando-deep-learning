@@ -3,6 +3,7 @@ docs/index.tpl
 docs/js/docs.js
 docs/notebooks.html
 docs/notebooks.tpl
+docs/notebooks/0. Introdução a Deep Learning.html
 docs/notebooks/intro_to_neural_nets.html
 docs/notebooks/intro_to_tensors.html
 docs/notebooks/neural_nets.html
