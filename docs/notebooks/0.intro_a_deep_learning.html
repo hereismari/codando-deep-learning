@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="ipynb_website:version" content="0.9.6" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css" href="../css/jt.css">
+<link rel="stylesheet" type="text/css" href="../css/readable.css">
+<link rel="stylesheet" type="text/css" href="../css/toc2.css">
+
+<link href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="../site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="../site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+
+<link rel="stylesheet"
+      href="../site_libs/highlightjs-1.1/textmate.css"
+      type="text/css" />
+
+<script src="../site_libs/highlightjs-1.1/highlight.js"></script>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+<script src="../js/doc_toc.js"></script>
+<script src="../js/docs.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+        },
+        "HTML-CSS": {
+            preferredFont: "TeX",
+            availableFonts: ["TeX"],
+            styles: {
+                scale: 110,
+                ".MathJax_Display": {
+                    "font-size": "110%",
+                }
+            }
+        }
+    });
+</script>
+<script>
+function filterDataFrame(id) {
+    var input = document.getElementById("search_" + id);
+    var filter = input.value.toUpperCase();
+    var table = document.getElementById("dataframe_" + id);
+    var tr = table.getElementsByTagName("tr");
+    // Loop through all table rows, and hide those who don't match the search query
+    for (var i = 1; i < tr.length; i++) {
+        for (var j = 0; j < tr[i].cells.length; ++j) {
+            var matched = false;
+            if (tr[i].cells[j].innerHTML.toUpperCase().indexOf(filter) != -1) {
+                tr[i].style.display = "";
+                matched = true
+                break;
+            }
+            if (!matched)
+                tr[i].style.display = "none";
+        }
+    }
+}
+function sortDataFrame(id, n, dtype) {
+    var table = document.getElementById("dataframe_" + id);
+    var tb = table.tBodies[0]; // use `<tbody>` to ignore `<thead>` and `<tfoot>` rows
+    var tr = Array.prototype.slice.call(tb.rows, 0); // put rows into array
+    if (dtype === 'numeric') {
+        var fn = function(a, b) { 
+            return parseFloat(a.cells[n].textContent) <= parseFloat(b.cells[n].textContent) ? -1 : 1;
+        }
+    } else {
+        var fn = function(a, b) {
+            var c = a.cells[n].textContent.trim().localeCompare(b.cells[n].textContent.trim()); 
+            return c > 0 ? 1 : (c < 0 ? -1 : 0) }
+    }
+    var isSorted = function(array, fn) {
+        if (array.length < 2)
+            return 1;
+        var direction = fn(array[0], array[1]); 
+        for (var i = 1; i < array.length - 1; ++i) {
+            var d = fn(array[i], array[i+1]);
+            if (d == 0)
+                continue;
+            else if (direction == 0)
+                direction = d;
+            else if (direction != d)
+                return 0;
+            }
+        return direction;
+    }
+    var sorted = isSorted(tr, fn);
+    if (sorted == 1 || sorted == -1) {
+        // if sorted already, reverse it
+        for(var i = tr.length - 1; i >= 0; --i)
+            tb.appendChild(tr[i]); // append each row in order
+    } else {
+        tr = tr.sort(fn);
+        for(var i = 0; i < tr.length; ++i)
+            tb.appendChild(tr[i]); // append each row in order
+    }
+}
+</script>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+  // mark it active
+  menuAnchor.parent().addClass('active');
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+<div class="container-fluid main-container">
+<!-- tabsets -->
+<script src="../site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+
+
+<title>Codando Deep Learning</title>
+
+<style type = "text/css">
+body {
+  
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+</style>
+</head>
+
+<body>
+<div tabindex="-1" id="notebook" class="border-box-sizing">
+<div class="container" id="notebook-container">
+
+<!-- code folding -->
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../index.html">Codando Deep Learning</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+<li>
+  <a href="../notebooks.html">Notebooks</a>
+</li>
+        
+      </ul>
+        
+<ul class="nav navbar-nav navbar-right">
+<li>
+   <a href="http://github.com/mari-linhares/codando-deep-learning"> Github </a>
+</li>
+</ul>
+        
+      </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="0.-Introdu&#231;&#227;o-a-Deep-Learning">0. Introdu&#231;&#227;o a Deep Learning<a class="anchor-link" href="#0.-Introdu&#231;&#227;o-a-Deep-Learning">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Deep Learning têm recebido <a href="https://trends.google.com/trends/explore?date=all&amp;q=Deep%20Learning">bastante atenção nos últimos anos</a>, tanto no campo da computação como na mídia em geral.</p>
+<p>Técnicas de Deep Learning (DL) se tornaram o estado da arte em várias tarefas de Inteligência Artificial e mudado vários grandes campos da área, na visão computacional (classificação de imagens, segmentação de imagens), NLP (tradução, classificação de textos), reinforcement learning (agentes capazes de jogar jogos complexos como Go, Atari e DOTA).</p>
+<p>Esse impacto não fica só na teoria, DL está mudando o campo da Medicina, Ciência, Matemática, Física. Artigos de Deep Learning são rotinamente publicados em grandes revistas científicas como: Nature, Science e JAMA.</p>
+<p>Nesta seção iremos discutir:</p>
+<ul>
+<li>O que é Deep Learning?</li>
+<li>Eu realmente deveria me importar com DL ou é só <a href="https://pt.wikipedia.org/wiki/Hype">hype</a>?</li>
+<li>Por que eu como programador(a) deveria me importar?</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="DL-=-Muitos-Dados-+-Redes-Neurais-+-Otimiza&#231;&#227;o">DL = Muitos Dados + Redes Neurais + Otimiza&#231;&#227;o<a class="anchor-link" href="#DL-=-Muitos-Dados-+-Redes-Neurais-+-Otimiza&#231;&#227;o">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Intelig&#234;ncia-Artificial-$\supseteq$-Machine-Learning-$\supseteq$-Deep-Learning">Intelig&#234;ncia Artificial $\supseteq$ Machine Learning $\supseteq$ Deep Learning<a class="anchor-link" href="#Intelig&#234;ncia-Artificial-$\supseteq$-Machine-Learning-$\supseteq$-Deep-Learning">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img align='center' src='https://raw.githubusercontent.com/mari-linhares/codando-deep-learning/master/notebooks/images/IA_ML_DL.png' width=500></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>IA (Inteligência Artificial), ML (Machine Learning) e DL (Deep Learning) são utilizados na mídia (e muitas vezes na área) quase como sinônimos.</p>
+<p><strong>Inteligência Artificial</strong> se refere ao campo da ciência da computação que se preocupa com o estudo de máquinas para realização de atividades ditas inteligentes. Esse é um grande campo com diferentes "escolas"/"ramificações". Inteligência é um conceito muito amplo e bastante subjetivo.</p>
+<p>Uma grande pergunta é <strong>como</strong> construir máquinas inteligentes?</p>
+<p><strong>Machine Learning</strong> se refere ao subcampo da IA que busca extrair estrutura e inteligência dos dados (experiência).</p>
+<blockquote><p>"Um computador aprende a partir da experiência E com respeito a alguma tarefa T e alguma medida de performance P, se sua performance em T melhora com sua experiência E" - <a href="http://www.cs.cmu.edu/~tom/">Tom Mitchell (1998)</a></p>
+</blockquote>
+<p><img align='center' src='https://raw.githubusercontent.com/mari-linhares/codando-deep-learning/master/notebooks/images/ml_definition.png' width=500></p>
+<p>A ideia de ML é que, para realizar uma tarefa, nós (programadoras(es)) não implementemos as regras que definem as saídas para uma dada entrada. Imagine que queremos traduzir <strong>qualquer</strong> frase do inglês para português, quais regras iremos utilizar? Listar todas as traduções e regras possíveis é não trivial.</p>
+<blockquote><p><em>“A complexidade de programas de computadores convencionasis está no código (programas que as pessoas escrevem). Em Machine Learning, algoritmos são em princípio simples e a complexidade (estrutura) está nos dados. Existe uma maneira de aprender essa estrutura automaticamente? Esse é o princípio fundamental de Machine Learning.”- <a href="https://en.wikipedia.org/wiki/Andrew_Ng">Andrew Ng</a></em></p>
+</blockquote>
+<p>Ao invés de listar as regras e funcionamento do sistema podemos utilizar um <strong>modelo de Machine Learning</strong>, e mostrar para o modelo vários exemplos de frases em inglês traduzidas para português. Padrões são extraídos dos dados e utilizados para que o modelo defina como tomar suas próprias decisões de modo a otimizar a tradução.</p>
+<p>Modelos de Machine Learning extraem padrões dos dados, e claro são extremamente dependentes da qualidade dos dados para sucesso em suas tarefas, mas também depende de <strong>como os dados são representados</strong>. Por exemplo, como um modelo de ML deve representar uma frase?</p>
+<p><img src='https://media.giphy.com/media/1X7lCRp8iE0yrdZvwd/giphy.gif' width=400></p>
+<p>Seria muito bom não ter que se preocupar com a representação dos dados... Tipo, dar para o modelo uma representação bastante simplificada e ele que se preocupe em encontrar algum sentindo nesse dado <strong>bruto</strong>...</p>
+<p>Seria e é possível!! Essa abordagem é conhecida como <strong>Representation Learning</strong>, o modelo deve ser capaz não só de resolver a tarefa (exemplo: tradução), mas também de encontrar representações úteis para os dados de modo a resolver essa tarefa. Afinal, a gente não sabe explicar como resolve o problema, provavelmente também não sabemos qual a melhor representação para tal.</p>
+<p><strong>Deep Learning é um subcampo de ML que utiliza representation learning definindo representações mais complexas a partir de outras representações mais simples.</strong></p>
+<p><img src='https://raw.githubusercontent.com/mari-linhares/codando-deep-learning/master/notebooks/images/representation_learning_dl.png' width=1000></p>
+<p>O nome <strong>Deep</strong> vem das múltiplas representações (<strong>camadas</strong>) que utilizamos para construir os modelos. Então, de maneira geral, quando pensamos em DL pensamos em um modelo com váááárias camadas, e também precisamos de muuuuitos dados. Métodos de DL tem fome de dados. Quer boas representações? Me dê vários exemplos de dados; Quer que eu saiba traduzir bem? Me dê vários exemplos de traduções já feitas que eu consigo extrair os padrões e aprender umas representações bem bacanas e ser um excelente tradutor!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Eu-realmente-deveria-me-importar-com-DL-ou-&#233;-s&#243;-hype?">Eu realmente deveria me importar com DL ou &#233; s&#243; <a href="https://pt.wikipedia.org/wiki/Hype">hype</a>?<a class="anchor-link" href="#Eu-realmente-deveria-me-importar-com-DL-ou-&#233;-s&#243;-hype?">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Populariza&#231;&#227;o-de-DL">Populariza&#231;&#227;o de DL<a class="anchor-link" href="#Populariza&#231;&#227;o-de-DL">&#182;</a></h3><p>O termo Deep Learning começou a se popularizar em 2010~2012 quando técnicas de DL foram aplicadas com sucesso para a tarefa de classificação de imagens num desafio chamado "Imaginet Challenge" que consiste em classificar corretamente imagens em 1000 diferentes categorias.</p>
+<p><img src="https://www.researchgate.net/profile/Gustav_Von_Zitzewitz/publication/324476862/figure/fig7/AS:614545865310213@1523530560584/Winner-results-of-the-ImageNet-large-scale-visual-recognition-challenge-LSVRC-of-the.png" alt=""></p>
+<p>Desde então modelos de DL são a melhor coisa para essa tarefa e só ficam melhor. Na imagem acima é mostrado o erro do vencedor do desafio em cada ano. Sendo as barras azuis modelos de DL.</p>
+<h3 id="Mas...-redes-neurais-(cora&#231;&#227;o-do-DL)-existem-desde-1930,-por-que-s&#243;-agora?">Mas... redes neurais (cora&#231;&#227;o do DL) existem desde 1930, por que s&#243; agora?<a class="anchor-link" href="#Mas...-redes-neurais-(cora&#231;&#227;o-do-DL)-existem-desde-1930,-por-que-s&#243;-agora?">&#182;</a></h3><p>Dois grandes fatores contribuiram para o sucesso de métodos de DL e sua popularização:</p>
+<ol>
+<li>Muitos dados disponívels</li>
+<li>Hardware disponível </li>
+</ol>
+<p>Com esses fatores DL se tornou imparável e se firmou como estado na arte não só na tarefa de classificação de imagens mas numa esmagadora gama de tarefas e áreas.</p>
+<p>Hoje em dia todo mundo que é legal ta usando Deep Learning.</p>
+<h3 id="Ta...-mas-&#233;-hype-ou-n&#227;o-&#233;?">Ta... mas &#233; hype ou n&#227;o &#233;?<a class="anchor-link" href="#Ta...-mas-&#233;-hype-ou-n&#227;o-&#233;?">&#182;</a></h3><p>O hype é real, mas o avanço também!</p>
+<p>Ainda existem vários problemas em abertos, porém a área de DL está em constante evolução, cada dia que passa novas técnicas surgem e mais resultados surpreendentes são alcançados.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Por-que-eu-deveria-me-importar?">Por que eu deveria me importar?<a class="anchor-link" href="#Por-que-eu-deveria-me-importar?">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ol>
+<li><a href="https://medium.com/@karpathy/software-2-0-a64152b37c35">ML e DL estão mudando como se constrói e se pensa sobre software!</a></li>
+<li><a href="https://www.youtube.com/watch?v=PCBTZh41Ris">DL é muito legal, se você entender de DL você se torna mais legal e interessante por tabela :D</a></li>
+</ol>
+<p>Mas sério, a razão 1. é realmente muito relevante, leia <a href="(https://medium.com/@karpathy/software-2-0-a64152b37c35">esse blog</a>) e entenda como DL está mudando como construimos e construiremos software.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Refer&#234;ncias">Refer&#234;ncias<a class="anchor-link" href="#Refer&#234;ncias">&#182;</a></h2><p>Este conteúdo é baseado nos seguintes materiais:</p>
+<ul>
+<li><a href="http://www.cs.utexas.edu/users/hunt/FMCAD/FMCAD16/slides/tutorial1.pdf?fbclid=IwAR0RnrpaJzULlFkpAXsIVMDmK7EI490Bg65cnNgYJNO_RweyyiZQ7twV9PY">Machine Learning in Formal Verification, FMCAD 2016 tutorial - Manish Pandey</a></li>
+<li><a href="https://www.deeplearningbook.org/contents/intro.html">Deep Learning Book, capítulo 1 - GoodFellow et Al.</a></li>
+<li><a href="https://beamandrew.github.io/deeplearning/2017/02/23/deep_learning_101_part1.html">Deep Learning 101 - Part 1: History and Background - Andrew L. Beam</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<hr>
+&copy; 2019 Marianne Linhares, Arnaldo Gualberto
+
+</div>
+</div>
+</body>
+</html>

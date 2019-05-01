@@ -206,12 +206,19 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>A história das redes neurais é curiosa, engraçada e triste ao mesmo tempo.</p>
-<p>Certo dia, em 1958, um certo cientista nova-yorkino, inspirado pelo trabalho de seus colegas que estudavam sobre o cérebro humano, terminou de projetar um algoritmo que conseguia aprender sozinho a resolver problemas simples. Nascia ali, o <strong>Perceptron</strong> (que veremos mais adiante no curso).</p>
+<h3 id="O-come&#231;o-de-tudo">O come&#231;o de tudo<a class="anchor-link" href="#O-come&#231;o-de-tudo">&#182;</a></h3><p>A história das redes neurais é curiosa, engraçada e triste ao mesmo tempo. Então, senta que lá vem história...</p>
+<p>Certo dia, em 1958, um certo cientista nova-yorkino, chamado <a href="https://en.wikipedia.org/wiki/Frank_Rosenblatt">Frank Rosenblatt</a>, inspirado pelo trabalho de seus colegas que estudavam sobre o cérebro humano, terminou de projetar um algoritmo que conseguia aprender sozinho a resolver problemas simples. Nascia ali, o <strong>Perceptron</strong> (que veremos mais adiante no curso).</p>
 <p>A ideia inicial do Perceptron, na verdade, era ser uma máquina ao invés de um programa. E foi o que aconteceu. Utilizando o poderosíssimo <a href="https://en.wikipedia.org/wiki/IBM_704">IBM 704</a> que fazia 12 mil adições por segundo (só para você ter uma noção, um iPhone 7 faz 300 bilhões) os cientistas construíram uma máquina denominada <strong>Mark I Perceptron</strong>.</p>
 <p><img align='center' src='https://github.com/mari-linhares/codando-deep-learning/blob/master/notebooks/images/mark_i.jpg?raw=true' width=600></p>
 <p><strong>A ideia do Mark I Perceptron era que, para uma dada imagem de entrada, a máquina deveria aprender sozinha a classificar a saída em 0 ou 1</strong>. Mas, calma, nem imagens existiam naquela época! Então, como projetaram isso? Os cientistas na época conectaram 400 foto-células a entrada do Mark I para simular uma imagem 20x20 (um pouco maior talvez do que as letras desse texto). E para permitir a calibração da máquina, cada entrada dessa era conectada a um potenciômetro que eram ajustados automaticamente por motores elétricos para mapear as entradas na saída final 0 ou 1.</p>
-<p>O Perceptron, na época, foi um sucesso! Afinal de contas, <strong>ele foi um dos primeiros algoritmos capazes de aprender sozinho</strong>. Além disso, já foi provado que <strong>o Perceptron tem garantia de sucesso quando as duas classes são linearmente separáveis</strong>. Porém, é aí que está o problema: o Perceptron nada mais é que um classificador binário linear. Ou seja, ele só funciona quando o seu problema é binário (2 classes) e seus dados podem ser separados por uma simples reta. Essas condições, no mundo real, são muito difíceis de acontecer. Só para exemplificar, como você separia os dados abaixo com apenas uma reta?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-winter-is-coming...-&#128532;">The winter is coming... &#128532;<a class="anchor-link" href="#The-winter-is-coming...-&#128532;">&#182;</a></h3><p>O Perceptron, na época, foi um sucesso! Afinal de contas, <strong>ele foi um dos primeiros algoritmos capazes de aprender sozinho</strong>. Além disso, já foi provado que <strong>o Perceptron tem garantia de sucesso quando as duas classes são linearmente separáveis</strong>. Porém, é aí que está o problema: o Perceptron nada mais é que um classificador binário linear. Ou seja, ele só funciona quando o seu problema é binário (2 classes) e seus dados podem ser separados por uma simples reta. Essas condições, no mundo real, são muito difíceis de acontecer. Só para exemplificar, como você separia os dados abaixo com apenas uma reta?</p>
 <p><img align='center' src='https://jarvmiller.github.io/post/2017-10-20-neural-networks-units-and-decision-boundaries_files/figure-html/xor%20setup-1.png' width=400></p>
 <p><a href="https://jarvmiller.github.io/2017/10/14/neural-nets-pt1/">Fonte da imagem</a></p>
 <p>Pois é. O Perceptron também não consegue resolver esse simples problema (para quem não reparou, o gráfico acima representa a <a href="https://pt.wikipedia.org/wiki/Porta_XOR">porta XOR</a>). Na época, isso desanimou tanto os estudiosos da área de Inteligência Artificial, que pesquisas nessa área só foram retomadas de fato na década de 80. Tal período ficou conhecido como o <strong>inverno da Inteligência Artificial</strong> (<em>AI Winter</em>).</p>
@@ -222,55 +229,16 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introdu&#231;&#227;o-&#224;-Redes-Neurais">Introdu&#231;&#227;o &#224; Redes Neurais<a class="anchor-link" href="#Introdu&#231;&#227;o-&#224;-Redes-Neurais">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Redes neurais podem ser vistas de maneira bastante simplificada como <strong>funções matemáticas</strong>. Uma simples definição de redes neurais é:</p>
-<blockquote><p>"Redes Neurais são <em>aproximadores de função</em>"</p>
-</blockquote>
-<p>Desse modo, similar à funções, as redes neurais possuem entradas e saídas.</p>
+<h3 id="O-salvador-da-p&#225;tria:-Geoffrey-Hinton">O salvador da p&#225;tria: Geoffrey Hinton<a class="anchor-link" href="#O-salvador-da-p&#225;tria:-Geoffrey-Hinton">&#182;</a></h3><p>O maior problema do Perceptron era que ele era apenas um só. Intuitivamente, é fácil perceber que um neurônio só não faz uma rede neural <del>(assim como uma andorinha só não faz verão)</del>. Pensando assim, muita gente tentou colocar um monte de Perceptrons conectados entre si para tentar resolver um problema. Porém, muitos do que fizeram isso se depararam com um problema: <strong>como propagar o erro da saída para as entradas?</strong> Em outras palavras, <strong>como fazer esse monte de Perceptrons aprenderem ao mesmo tempo sem que um atrapalhe o que o outro aprendeu?"</strong>.</p>
+<p>Pensando nisso, o famoso <a href="https://en.wikipedia.org/wiki/Geoffrey_Hinton">Geoffrey Hinton</a> desenvolveu o algoritmo <strong><a href="https://en.wikipedia.org/wiki/Backpropagation">backpropagation</a></strong> na década de 80. Utilizando o conceito de gradientes e regra da cadeia, tal algoritmo pega o erro de uma rede neural e propaga-o até as entradas, fazendo leves ajustes nos parâmetros (pesos) da rede. Com isso, Redes Neurais com mais de um neurônio e mais de uma camada poderiam começar a ser desenvolvidas e treinadas em problemas mais complexos. Como eu disse, <em>poderiam</em>...</p>
+<p>O problema era que na década de 80, e mesmo na década de 90, o treinamento de tais redes e aplicação do backpropagation era muito pesado ainda. Mesmo supercomputadores se matavam para treinar e executar tais redes ainda. Então, o que fazer?</p>
+<h3 id="Obrigado,-gamers!">Obrigado, gamers!<a class="anchor-link" href="#Obrigado,-gamers!">&#182;</a></h3><p>Mais uma vez o mundo foi salvo graças aos <strong>gamers</strong>. Isso mesmo. Essa obsessão dos gamers em sempre querer computadores mais potentes e jogos com gráficos cada vez melhores, fez com que a indústria dos computadores, especialmente a das GPUs se desenvolvessem num ritmo assustador - regido pela Lei de Murphy. Mas, o que os jogos têm a ver com o desenvolvimento das Redes Neurais?</p>
+<p>A resposta é: matrizes! Como vamos ver num dos próximos assuntos, <strong>Redes Neurais tem tudo a ver com matrizes</strong>. Basicamente, Redes Neurais fazem um monte de cálculo sobre matrizes, como: soma, multiplicão, operaçõe ponto-a-ponto, etc... E, como GPUs são computadores especializados em cálculos sobre matrizes, o campo das Redes Neurais pode se desenvolver como nunca. Cada vez mais, redes mais complexas e pesadas puderam ser desenvolvidas e treinadas.</p>
+<hr>
+<p>Agora que já tivemos uma introdução sobre a história das Redes Neurais, chegou a hora de aprendermos mais sobre elas. Então, prepara um café que chegou a hora de começar os estudos...</p>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">MyFirstNeuralNetwork</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_weights</span> <span class="o">=</span> <span class="n">weights</span>
-    
-    <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_input</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_activation_function</span><span class="p">(</span><span class="n">_input</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weights</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">_activation_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">data</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nn</span> <span class="o">=</span> <span class="n">MyFirstNeuralNetwork</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -278,6 +246,10 @@ body {
 <h2 id="Refer&#234;ncias">Refer&#234;ncias<a class="anchor-link" href="#Refer&#234;ncias">&#182;</a></h2><p>Este conteúdo é baseado nos seguintes materiais:</p>
 <ul>
 <li><a href="https://github.com/iamtrask/Grokking-Deep-Learning">Capítulo 3</a> de Grokking Deep Learning.</li>
+<li><a href="https://en.wikipedia.org/wiki/Perceptron">Perceptron</a> da Wikipedia</li>
+<li><a href="https://en.wikipedia.org/wiki/Frank_Rosenblatt">Frank Rosenblatt</a> da Wikipedia</li>
+<li><a href="https://en.wikipedia.org/wiki/Geoffrey_Hinton">Geoffrey Hinton</a> da Wikipedia</li>
+<li><a href="https://en.wikipedia.org/wiki/Backpropagation">Backpropagation</a> da Wikipedia</li>
 </ul>
 
 </div>

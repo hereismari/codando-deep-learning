@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="ipynb_website:version" content="0.9.6" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css" href="../css/jt.css">
+<link rel="stylesheet" type="text/css" href="../css/readable.css">
+<link rel="stylesheet" type="text/css" href="../css/toc2.css">
+
+<link href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="../site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="../site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+
+<link rel="stylesheet"
+      href="../site_libs/highlightjs-1.1/textmate.css"
+      type="text/css" />
+
+<script src="../site_libs/highlightjs-1.1/highlight.js"></script>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+<script src="../js/doc_toc.js"></script>
+<script src="../js/docs.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+        },
+        "HTML-CSS": {
+            preferredFont: "TeX",
+            availableFonts: ["TeX"],
+            styles: {
+                scale: 110,
+                ".MathJax_Display": {
+                    "font-size": "110%",
+                }
+            }
+        }
+    });
+</script>
+<script>
+function filterDataFrame(id) {
+    var input = document.getElementById("search_" + id);
+    var filter = input.value.toUpperCase();
+    var table = document.getElementById("dataframe_" + id);
+    var tr = table.getElementsByTagName("tr");
+    // Loop through all table rows, and hide those who don't match the search query
+    for (var i = 1; i < tr.length; i++) {
+        for (var j = 0; j < tr[i].cells.length; ++j) {
+            var matched = false;
+            if (tr[i].cells[j].innerHTML.toUpperCase().indexOf(filter) != -1) {
+                tr[i].style.display = "";
+                matched = true
+                break;
+            }
+            if (!matched)
+                tr[i].style.display = "none";
+        }
+    }
+}
+function sortDataFrame(id, n, dtype) {
+    var table = document.getElementById("dataframe_" + id);
+    var tb = table.tBodies[0]; // use `<tbody>` to ignore `<thead>` and `<tfoot>` rows
+    var tr = Array.prototype.slice.call(tb.rows, 0); // put rows into array
+    if (dtype === 'numeric') {
+        var fn = function(a, b) { 
+            return parseFloat(a.cells[n].textContent) <= parseFloat(b.cells[n].textContent) ? -1 : 1;
+        }
+    } else {
+        var fn = function(a, b) {
+            var c = a.cells[n].textContent.trim().localeCompare(b.cells[n].textContent.trim()); 
+            return c > 0 ? 1 : (c < 0 ? -1 : 0) }
+    }
+    var isSorted = function(array, fn) {
+        if (array.length < 2)
+            return 1;
+        var direction = fn(array[0], array[1]); 
+        for (var i = 1; i < array.length - 1; ++i) {
+            var d = fn(array[i], array[i+1]);
+            if (d == 0)
+                continue;
+            else if (direction == 0)
+                direction = d;
+            else if (direction != d)
+                return 0;
+            }
+        return direction;
+    }
+    var sorted = isSorted(tr, fn);
+    if (sorted == 1 || sorted == -1) {
+        // if sorted already, reverse it
+        for(var i = tr.length - 1; i >= 0; --i)
+            tb.appendChild(tr[i]); // append each row in order
+    } else {
+        tr = tr.sort(fn);
+        for(var i = 0; i < tr.length; ++i)
+            tb.appendChild(tr[i]); // append each row in order
+    }
+}
+</script>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+  // mark it active
+  menuAnchor.parent().addClass('active');
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+<div class="container-fluid main-container">
+<!-- tabsets -->
+<script src="../site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+
+
+<title>Codando Deep Learning</title>
+
+<style type = "text/css">
+body {
+  
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+</style>
+</head>
+
+<body>
+<div tabindex="-1" id="notebook" class="border-box-sizing">
+<div class="container" id="notebook-container">
+
+<!-- code folding -->
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../index.html">Codando Deep Learning</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+<li>
+  <a href="../notebooks.html">Notebooks</a>
+</li>
+        
+      </ul>
+        
+<ul class="nav navbar-nav navbar-right">
+<li>
+   <a href="http://github.com/mari-linhares/codando-deep-learning"> Github </a>
+</li>
+</ul>
+        
+      </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="1.1-Introdu&#231;&#227;o-a-Redes-Neurais:-O-que-s&#227;o?">1.1 Introdu&#231;&#227;o a Redes Neurais: O que s&#227;o?<a class="anchor-link" href="#1.1-Introdu&#231;&#227;o-a-Redes-Neurais:-O-que-s&#227;o?">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="O-que-&#233;-uma-rede-neural?">O que &#233; uma rede neural?<a class="anchor-link" href="#O-que-&#233;-uma-rede-neural?">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Redes neurais podem ser vistas de maneira bastante simplificada como <strong>funções matemáticas</strong>. Uma simples definição de redes neurais é:</p>
+<blockquote><p>"Redes Neurais são <em>aproximadores de função</em>"</p>
+</blockquote>
+<p>Desse modo, similar à funções, as redes neurais possuem entradas e saídas. As entradas são representadas pelas amostras dos seus dados. Em geral, elas são matrizes $NxD$, onde $N$ (#linhas) <strong>representa o número de amostras</strong> que seu banco de dados tem e $D$ (#colunas) <strong>representa a quantidade de atributos</strong> de cada amostra, também conhecida por <em>dimensionalidade</em>. Como exemplo, imagine que tenhamos um banco de dados com 1.000 amostras e cada amostra tem 5 atributos. Logo, nossas entradas seriam representadas por uma matriz $1000x5$, sacou?</p>
+<p><strong>As saídas, por sua vez, representam o que você quer que a sua rede aprenda</strong>. Por exemplo: dado um banco com a altura de determinadas pessoas (entrada), queremos estimar o "peso" dessas pessoas. Nesse caso, o "peso" das pessoas é a variável que queremos estimar. Portanto, o "peso" nesse caso representaria a nossa saída. Sempre que a nossa saída é conhecida, nós dizemos que esse tipo de problema é um problema de <strong>Aprendizagem Supervisionada</strong>. Há casos em que não necessariamente o nosso problema tem uma saída explícita. Nesse caso, teremos uma <strong>Aprendizagem Não-Supervisionada</strong>. Além disso, quando a <strong>saída assume qualquer valor real</strong> (0, 1.2, 3.14, -26, +34, ...), nós dizemos que temos um <strong>Problema de Regressão</strong>. Por outro lado, quando a <strong>saída é discreta</strong> (0/1, homem/mulher, cachorro/gato/passarinho), nós temos <strong>Problemas de Classificação</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Arquitetura-de-Redes-Neurais">Arquitetura de Redes Neurais<a class="anchor-link" href="#Arquitetura-de-Redes-Neurais">&#182;</a></h3><p>Redes Neurais são definidas em termos de camadas. Em geral, <strong>a primeira camada representa a entrada da rede, enquanto a última camada representa a saída</strong>. Todas as camadas que estão entre as camadas de entrada e saída são chamadas de <strong>camadas escondidas</strong> (ou <em>hidden layers</em>). Um exemplo de uma Rede Neural com 2 camadas escondidas pode ser vista na figura abaixo:</p>
+<p><img align='center' src='https://cdn-images-1.medium.com/max/1200/0*hzIQ5Fs-g8iBpVWq.jpg' width=500></p>
+<p><a href="https://cdn-images-1.medium.com/max/1200/0*hzIQ5Fs-g8iBpVWq.jpg">Fonte da imagem</a></p>
+<p>Com exceção da camada de entrada, toda camada de uma rede é composta pela seguintes propriedades:</p>
+<ul>
+<li><strong>número de neurônios</strong>: na figura acima, as duas camadas escondidas tem 4 neurônios, enquanto a camada de saída tem apenas 1.</li>
+<li><strong>parâmetros</strong>: cada neurônio recebe como entrada todos as saídas dos neurônios das camadas anteriores. Cada entrada dessa é multiplicada por um peso correspondente. <strong>Tais pesos representam o que a Rede Neural pode ajustar para encontrar a solução do problema e são conhecidos como parâmetros</strong>. </li>
+</ul>
+<blockquote><p>⚠️ <strong>Cuidado: não confunda parâmetro com hiperparâmetros!</strong> Parâmetros são o que a sua rede usa para aprender (pesos e bias), enquanto hiperparâmetros são o que você define acerca da sua rede (número de camadas, qtde. de neurônios por camada, função de ativação de cada camada, etc...)</p>
+</blockquote>
+<ul>
+<li><strong>função de ativação</strong>: cada neurônio da rede tem uma função de ativação embutida. Elas são responsáveis por dar o poder de não-linearidade à rede - quando você usa uma função de ativação não-linear (<em>sigmoid</em>, <em>tanh</em>, <em>ReLU</em>, etc...), obviamente. Nós estudaremos sobre elas mais à frente um pouco.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">MyFirstNeuralNetwork</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_weights</span> <span class="o">=</span> <span class="n">weights</span>
+    
+    <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_input</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_activation_function</span><span class="p">(</span><span class="n">_input</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weights</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_activation_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nn</span> <span class="o">=</span> <span class="n">MyFirstNeuralNetwork</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Refer&#234;ncias">Refer&#234;ncias<a class="anchor-link" href="#Refer&#234;ncias">&#182;</a></h2><p>Este conteúdo é baseado nos seguintes materiais:</p>
+<ul>
+<li><a href="https://github.com/iamtrask/Grokking-Deep-Learning">Capítulo 3</a> de Grokking Deep Learning.</li>
+<li><a href="https://en.wikipedia.org/wiki/Perceptron">Perceptron</a> da Wikipedia</li>
+<li><a href="https://en.wikipedia.org/wiki/Frank_Rosenblatt">Frank Rosenblatt</a> da Wikipedia</li>
+<li><a href="https://en.wikipedia.org/wiki/Geoffrey_Hinton">Geoffrey Hinton</a> da Wikipedia</li>
+<li><a href="https://en.wikipedia.org/wiki/Backpropagation">Backpropagation</a> da Wikipedia</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<hr>
+&copy; 2019 Marianne Linhares, Arnaldo Gualberto
+
+</div>
+</div>
+</body>
+</html>

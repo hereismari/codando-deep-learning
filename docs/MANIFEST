@@ -3,7 +3,9 @@ docs/index.tpl
 docs/js/docs.js
 docs/notebooks.html
 docs/notebooks.tpl
-docs/notebooks/0. Introdução a Deep Learning.html
-docs/notebooks/intro_to_neural_nets.html
-docs/notebooks/intro_to_tensors.html
-docs/notebooks/neural_nets.html
+docs/notebooks/0.intro_a_deep_learning.html
+docs/notebooks/1.1.historia_das_redes_neurais.html
+docs/notebooks/1.2.o_que_sao.html
+docs/notebooks/1.3.do_que_se_alimentam.html
+docs/notebooks/1.4.como_aprendem.html
+docs/notebooks/1.5.minha_primeira_rede_neural.html
