@@ -192,65 +192,135 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hist&#243;ria-das-Redes-Neurais">Hist&#243;ria das Redes Neurais<a class="anchor-link" href="#Hist&#243;ria-das-Redes-Neurais">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="O-come&#231;o-de-tudo">O come&#231;o de tudo<a class="anchor-link" href="#O-come&#231;o-de-tudo">&#182;</a></h2><p>A história das redes neurais é curiosa, engraçada e triste ao mesmo tempo. Então, senta que lá vem história...</p>
-<p>Certo dia, em 1958, um certo cientista nova-yorkino, chamado <a href="https://en.wikipedia.org/wiki/Frank_Rosenblatt">Frank Rosenblatt</a>, inspirado pelo trabalho de seus colegas que estudavam sobre o cérebro humano, terminou de projetar um algoritmo que conseguia aprender sozinho a resolver problemas simples. Nascia ali, o <strong>Perceptron</strong> (que veremos mais adiante no curso).</p>
-<p>A ideia inicial do Perceptron, na verdade, era ser uma máquina ao invés de um programa. E foi o que aconteceu. Utilizando o poderosíssimo <a href="https://en.wikipedia.org/wiki/IBM_704">IBM 704</a> que fazia 12 mil adições por segundo (só para você ter uma noção, um iPhone 7 faz 300 bilhões) os cientistas construíram uma máquina denominada <strong>Mark I Perceptron</strong>.</p>
-<p><img align='center' src='https://github.com/mari-linhares/codando-deep-learning/blob/master/notebooks/images/mark_i.jpg?raw=true' width=600></p>
-<p><strong>A ideia do Mark I Perceptron era que, para uma dada imagem de entrada, a máquina deveria aprender sozinha a classificar a saída em 0 ou 1</strong>.</p>
-<blockquote><p><em>Mas... 1958? Nem imagens existiam naquela época! Então, como projetaram isso?</em></p>
-</blockquote>
-<p>Os cientistas na época conectaram 400 foto-células a entrada do Mark I para simular uma imagem 20x20 (um pouco maior talvez do que as letras desse texto). E para permitir a calibração da máquina, cada entrada dessa era conectada a um potenciômetro que eram ajustados automaticamente por motores elétricos para mapear as entradas na saída final 0 ou 1.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-winter-is-coming...-&#128532;">The winter is coming... &#128532;<a class="anchor-link" href="#The-winter-is-coming...-&#128532;">&#182;</a></h2><p><img align='center' src='https://thumbs.gfycat.com/DeadlyObedientHydra-size_restricted.gif' width=400></p>
-<p>O Perceptron, na época, foi um sucesso! Afinal de contas, <strong>ele foi um dos primeiros algoritmos capazes de aprender sozinho</strong>. Além disso, já foi provado que <strong>o Perceptron tem garantia de sucesso quando as duas classes são linearmente separáveis</strong>. Porém, é aí que está o problema: o Perceptron nada mais é que um classificador binário linear. Ou seja, ele só funciona quando o seu problema é binário (2 classes) e seus dados podem ser separados por uma simples reta. Essas condições, no mundo real, são muito difíceis de acontecer. Só para exemplificar, como você separia os dados abaixo com apenas uma reta?</p>
-<p><img align='center' src='https://jarvmiller.github.io/post/2017-10-20-neural-networks-units-and-decision-boundaries_files/figure-html/xor%20setup-1.png' width=400></p>
-<p><a href="https://jarvmiller.github.io/2017/10/14/neural-nets-pt1/">Fonte da imagem</a></p>
-<p>Pois é. O Perceptron também não consegue resolver esse simples problema (para quem não reparou, o gráfico acima representa a <a href="https://pt.wikipedia.org/wiki/Porta_XOR">porta XOR</a>). Na época, isso desanimou tanto os estudiosos da área de Inteligência Artificial, que pesquisas nessa área só foram retomadas de fato na década de 80. Tal período ficou conhecido como o <strong>inverno da Inteligência Artificial</strong> (<em>AI Winter</em>).</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="O-salvador-da-p&#225;tria:-Geoffrey-Hinton">O salvador da p&#225;tria: Geoffrey Hinton<a class="anchor-link" href="#O-salvador-da-p&#225;tria:-Geoffrey-Hinton">&#182;</a></h2><p>O maior problema do Perceptron era que ele era apenas um só. Intuitivamente, é fácil perceber que um neurônio só não faz uma rede neural <del>(assim como uma andorinha só não faz verão)</del>. Pensando assim, muita gente tentou colocar um monte de Perceptrons conectados entre si para tentar resolver um problema. Porém, muitos do que fizeram isso se depararam com um problema: <strong>como propagar o erro da saída para as entradas?</strong> Em outras palavras, <strong>como fazer esse monte de Perceptrons aprenderem ao mesmo tempo sem que um atrapalhe o que o outro aprendeu?"</strong>.</p>
-<p>Pensando nisso, o famoso <a href="https://en.wikipedia.org/wiki/Geoffrey_Hinton">Geoffrey Hinton</a> desenvolveu o algoritmo <strong><a href="https://en.wikipedia.org/wiki/Backpropagation">backpropagation</a></strong> na década de 80. Utilizando o conceito de gradientes e regra da cadeia, tal algoritmo pega o erro de uma rede neural e propaga-o até as entradas, fazendo leves ajustes nos parâmetros (pesos) da rede. Com isso, Redes Neurais com mais de um neurônio e mais de uma camada poderiam começar a ser desenvolvidas e treinadas em problemas mais complexos. Como eu disse, <em>poderiam</em>...</p>
-<p>O problema era que na década de 80, e mesmo na década de 90, o treinamento de tais redes e aplicação do backpropagation era muito pesado ainda. Mesmo supercomputadores se matavam para treinar e executar tais redes ainda. Então, o que fazer?</p>
-<h2 id="Obrigado,-gamers!">Obrigado, gamers!<a class="anchor-link" href="#Obrigado,-gamers!">&#182;</a></h2><p>Mais uma vez o mundo foi salvo graças aos <strong>gamers</strong>. Isso mesmo. Essa obsessão dos gamers em sempre querer computadores mais potentes e jogos com gráficos cada vez melhores, fez com que a indústria dos computadores, especialmente a das GPUs se desenvolvessem num ritmo assustador - regido pela Lei de Murphy. Mas, o que os jogos têm a ver com o desenvolvimento das Redes Neurais?</p>
-<p>A resposta é: matrizes! Como vamos ver num dos próximos assuntos, <strong>Redes Neurais tem tudo a ver com matrizes</strong>. Basicamente, Redes Neurais fazem um monte de cálculo sobre matrizes, como: soma, multiplicão, operaçõe ponto-a-ponto, etc... E, como GPUs são computadores especializados em cálculos sobre matrizes, o campo das Redes Neurais pode se desenvolver como nunca. Cada vez mais, redes mais complexas e pesadas puderam ser desenvolvidas e treinadas.</p>
-<hr>
-<p>Agora que já tivemos uma introdução sobre a história das Redes Neurais, chegou a hora de aprendermos mais sobre elas. Então, prepara um café que chegou a hora de começar os estudos...</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Refer&#234;ncias">Refer&#234;ncias<a class="anchor-link" href="#Refer&#234;ncias">&#182;</a></h2><p>Este conteúdo é baseado nos seguintes materiais:</p>
+<h1 id="Gloss&#225;rio">Gloss&#225;rio<a class="anchor-link" href="#Gloss&#225;rio">&#182;</a></h1><p>Definição dos termos utilizados ao longo do curso.</p>
 <ul>
-<li><a href="https://github.com/iamtrask/Grokking-Deep-Learning">Capítulo 3</a> de Grokking Deep Learning.</li>
-<li><a href="https://en.wikipedia.org/wiki/Perceptron">Perceptron</a> da Wikipedia</li>
-<li><a href="https://en.wikipedia.org/wiki/Frank_Rosenblatt">Frank Rosenblatt</a> da Wikipedia</li>
-<li><a href="https://en.wikipedia.org/wiki/Geoffrey_Hinton">Geoffrey Hinton</a> da Wikipedia</li>
-<li><a href="https://en.wikipedia.org/wiki/Backpropagation">Backpropagation</a> da Wikipedia</li>
+<li><a href="#acuracia">Acurácia</a></li>
+<li><a href="#atributo">Atributo</a></li>
+<li><a href="#iris">Base de dados iris</a></li>
 </ul>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id='acuracia'></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Acur&#225;cia">Acur&#225;cia<a class="anchor-link" href="#Acur&#225;cia">&#182;</a></h1><p>Quanto porcento da base de dados avaliamos corretamente.</p>
+<p>Exemplo:</p>
+<p>Digamos que temos 3 exemplos na nossa base de dados, onde esperamos os seguintes valores de saída para cada exemplo [0, 1, 1].</p>
+<p>Temos:</p>
+
+<pre><code>acurácia = 1, apenas se acertamos tudo: [0, 1, 1].  
+acurácia = 0.66, se comparamos esses valores com [1, 1, 1] (acertamos as duas últimas saídas).  
+acurácia = 0.33, se comparamos esses valores com [1, 0, 1] (acertamos apenas a última saída).  
+acurácia = 0, se errarmos todas as saídas: [1, 0, 0].</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="o">&lt;</span><span class="n">a</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;atributo&#39;</span><span class="o">&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-1-f8315d3082fd&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">1</span>
+<span class="ansi-red-fg">    &lt;a id=&#39;atributo&#39;&gt;&lt;/a&gt;</span>
+    ^
+<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> invalid syntax
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Atributo">Atributo<a class="anchor-link" href="#Atributo">&#182;</a></h2><p>Um aspecto que distíngue um elemento específico de outros elementos em um dado contexto.</p>
+<p>Exemplo 1:</p>
+<p>Digamos que você quer comprar um carro, neste contexto alguns dos atributos do carro seriam: cor, tamanho, preço, número de portas, se tem ou não ar-condicionado, etc.</p>
+<p>Exemplo 2:</p>
+<p>Digamos que você perdeu seu carro em um estacionamento, neste contexto alguns dos atributos relevantes do carro seriam: cor, tamanho, se tem ou não um adesivo escrito "MENGÃO", placa, etc.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id='iris'></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Base-de-dados-Iris">Base de dados Iris<a class="anchor-link" href="#Base-de-dados-Iris">&#182;</a></h2><p>A base de dados Iris foi publicada originalmente no <a href="http://archive.ics.uci.edu/ml/datasets/iris">UCI Machine Learning Repository</a> e é bastante utilizada em tutoriais por sua simplicidade.</p>
+<p>É uma pequena base contendo 150 exemplos de plantas de 3 diferentes espécies (setosa, versicolour e virginica). É bastante utilizada para a tarefa de classificação onde nos baseando nos atributos tentamos classificar um exemplo como uma das espécies: setosa, versicolour ou virginica.</p>
+<ul>
+<li>Atributos:<ol>
+<li>comprimento da sépala (centímetros) </li>
+<li>largura da sépala (centímetros)</li>
+<li>comprimento da petala (centímetros)</li>
+<li>largura da pétala  (centímetros)</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li>Classes: <ol>
+<li>Iris Setosa </li>
+<li>Iris Versicolour </li>
+<li>Iris Virginica</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Machine+Learning+R/iris-machinelearning.png" alt="">
+Imagem de: <a href="https://www.datacamp.com/community/tutorials/machine-learning-in-r">https://www.datacamp.com/community/tutorials/machine-learning-in-r</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <hr>
 &copy; 2019 Marianne Linhares, Arnaldo Gualberto
