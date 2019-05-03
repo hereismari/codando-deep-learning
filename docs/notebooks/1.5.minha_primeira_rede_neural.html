@@ -192,7 +192,7 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="1.4-Introdu&#231;&#227;o-a-Redes-Neurais:-minha-primeira-Rede-Neural-&lt;3">1.4 Introdu&#231;&#227;o a Redes Neurais: minha primeira Rede Neural &lt;3<a class="anchor-link" href="#1.4-Introdu&#231;&#227;o-a-Redes-Neurais:-minha-primeira-Rede-Neural-&lt;3">&#182;</a></h1>
+<h1 id="1.5-Introdu&#231;&#227;o-a-Redes-Neurais:-minha-primeira-Rede-Neural-&lt;3">1.5 Introdu&#231;&#227;o a Redes Neurais: minha primeira Rede Neural &lt;3<a class="anchor-link" href="#1.5-Introdu&#231;&#227;o-a-Redes-Neurais:-minha-primeira-Rede-Neural-&lt;3">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -834,7 +834,8 @@ $$\frac{\partial L}{\partial w_i} = 1/n * \sum{(y_i - ŷ_i)} * x_j $$$$\frac{\pa
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Carregar iris dataset</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Carregar base de dados iris</span>
+
 <span class="n">iris</span> <span class="o">=</span> <span class="n">fetch_mldata</span><span class="p">(</span><span class="s1">&#39;iris&#39;</span><span class="p">)</span>
 <span class="c1"># np.c_ concatena as features e targets do dataset</span>
 <span class="n">iris_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]],</span>
