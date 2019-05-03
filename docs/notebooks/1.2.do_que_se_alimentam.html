@@ -199,7 +199,10 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Falando em Deep Learning, essas entradas são normalmente <strong>tensores</strong>, isto é, vetores de diferentes dimensões. De maneira matemática, você pode pensar em tensores da seguinte forma:</p>
+<p>Falando em Deep Learning e redes neurais, as entradas são normalmente <strong>tensores</strong>. Nesta seção iremos discutir o que são tensores e como manipulá-los com Numpy.</p>
+<h2 id="O-que-s&#227;o-tensores?">O que s&#227;o tensores?<a class="anchor-link" href="#O-que-s&#227;o-tensores?">&#182;</a></h2><p>Tensores são vetores de diferentes dimensões. Você já conhece tensores, os mais comuns tem nomes próprios:</p>
+<p>Um tensor 0-dimensional é um <strong>scalar</strong>; um tensor uni-dimensional é um <strong>vetor</strong> (array); um tensor bi-dimensional é uma <strong>matriz</strong> (array de arrays); Um tensor N-dimensional é um... Tensor!</p>
+<p>Um <strong>tensor</strong> é qualquer vetor com N-dimensões (por exemplo, um cubo é um tensor de 3 dimensões). Vale salientar que, tecnicamente, o conceito de tensor engloba todos eles. Porém, na prática, chamamos de tensores os vetores com 3 ou mais dimensões. Veja <a href="https://www.youtube.com/watch?v=f5liqUk0ZTw"><strong>esse vídeo</strong></a> para mais detalhes.</p>
 
 </div>
 </div>
@@ -207,9 +210,26 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="https://www.kdnuggets.com/wp-content/uploads/scalar-vector-matrix-tensor.jpg" alt="">
+<p>Ainda pensando dessa forma, poderíamos imaginar um tensor 4-dimensional como um <strong>array de cubos</strong>; um tensor 5-dimensional seria uma <strong>matriz de cubos</strong>; um tensor 6-dimensional seria um <strong>cubo de cubos</strong>, e assim por diante...</p>
+<p><img align='center' src='https://media3.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif'></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Visualiza&#231;&#227;o-matem&#225;tica">Visualiza&#231;&#227;o matem&#225;tica<a class="anchor-link" href="#Visualiza&#231;&#227;o-matem&#225;tica">&#182;</a></h2><p>De maneira matemática, você pode pensar em tensores da seguinte forma:
+<img src="https://www.kdnuggets.com/wp-content/uploads/scalar-vector-matrix-tensor.jpg" alt="">
 Imagem de: <a href="https://www.kdnuggets.com/2018/05/wtf-tensor.html">https://www.kdnuggets.com/2018/05/wtf-tensor.html</a></p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Visualiza&#231;&#227;o-canina">Visualiza&#231;&#227;o canina<a class="anchor-link" href="#Visualiza&#231;&#227;o-canina">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -226,8 +246,14 @@ Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Na prática, um <strong>scalar</strong> é apenas um valor (0-dimensional); um <strong>vetor</strong> é um array de scalares (uni-dimensional); uma <strong>matriz</strong> é um array de vetores (bi-dimensional); e um <strong>tensor</strong> é qualquer vetor com N-dimensões (por exemplo, um cubo é um tensor de 3 dimensões). Vale salientar que, tecnicamente, o conceito de tensor engloba todos eles. Porém, na prática, chamamos de tensores os vetores com 3 ou mais dimensões. Veja <a href="https://www.youtube.com/watch?v=f5liqUk0ZTw"><strong>esse vídeo</strong></a> para mais detalhes.</p>
-<p>Em termos de código, tais estruturas são representadas da seguinte forma:</p>
+<h2 id="Vis&#227;o-Pythonica:-Numpy!">Vis&#227;o Pythonica: Numpy!<a class="anchor-link" href="#Vis&#227;o-Pythonica:-Numpy!">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Numpy é uma biblioteca em Python para manipulação eficiente de tensores.</p>
 
 </div>
 </div>
@@ -237,7 +263,7 @@ Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># todo mundo que é legal chama numpy de np ;)</span>
 </pre></div>
 
     </div>
@@ -247,11 +273,12 @@ Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scalar</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">scalar</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scalar_py</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">scalar_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">scalar_py</span><span class="p">,</span> <span class="n">scalar_np</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -268,7 +295,7 @@ Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>3
+<pre>3 3
 </pre>
 </div>
 </div>
@@ -279,11 +306,12 @@ Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vetor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">vetor</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vector_py</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">vector_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vector_py</span><span class="p">,</span> <span class="n">vector_np</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -300,7 +328,7 @@ Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[1 2 3]
+<pre>[1, 2, 3] [1 2 3]
 </pre>
 </div>
 </div>
@@ -311,11 +339,13 @@ Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matriz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">matriz</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matrix_py</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+<span class="n">matrix_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matrix_py</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matrix_np</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -332,7 +362,8 @@ Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[[1 2 3]
+<pre>[[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+[[1 2 3]
  [4 5 6]
  [7 8 9]]
 </pre>
@@ -345,11 +376,13 @@ Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tensor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">]]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tensor_py</span> <span class="o">=</span> <span class="p">[[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">]]]</span>
+<span class="n">tensor_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">]]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tensor_py</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tensor_np</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -366,7 +399,8 @@ Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[[[ 1  2]
+<pre>[[[1, 2], [3, 4]], [[5, 6], [7, 8]], [[9, 10], [11, 12]]]
+[[[ 1  2]
   [ 3  4]]
 
  [[ 5  6]
@@ -385,11 +419,227 @@ Imagem de: <a href="https://pbs.twimg.com/media/CvUaME-VIAACHLb.jpg">https://pbs
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Ainda pensando dessa forma, poderíamos imaginar um tensor 4-dimensional como um <strong>array de cubos</strong>; um tensor 5-dimensional seria uma <strong>matriz de cubos</strong>; um tensor 6-dimensional seria um <strong>cubo de cubos</strong>, e assim por diante...</p>
-<p><img align='center' src='https://media3.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif'></p>
+<h3 id="Manipulando-tensores">Manipulando tensores<a class="anchor-link" href="#Manipulando-tensores">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Esse código python quebra</span>
+<span class="mi">1</span> <span class="o">+</span> <span class="n">matrix_py</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-37-c3b8646a835f&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># Esse código python quebra</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span><span class="ansi-cyan-fg">1</span> <span class="ansi-blue-fg">+</span> matrix_py
+
+<span class="ansi-red-fg">TypeError</span>: unsupported operand type(s) for +: &#39;int&#39; and &#39;list&#39;</pre>
+</div>
+</div>
 
 </div>
 </div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matrix_np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[38]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Esse código numpy roda lindo</span>
+<span class="c1"># Somar um valor a todos os elementos de uma matriz nunca foi tao fácil!</span>
+<span class="mi">1</span> <span class="o">+</span> <span class="n">matrix_np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[39]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[ 2,  3,  4],
+       [ 5,  6,  7],
+       [ 8,  9, 10]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Transposta de uma matriz</span>
+<span class="n">matrix_np</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[40]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[1, 4, 7],
+       [2, 5, 8],
+       [3, 6, 9]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Multiplicação de matrizes</span>
+<span class="n">matrix_np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">matriz_np</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[41]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[ 30,  36,  42],
+       [ 66,  81,  96],
+       [102, 126, 150]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Somar uma lista a todas as linhas de uma matriz nunca foi tao fácil!</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">matrix_np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[42]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[ 2,  4,  6],
+       [ 5,  7,  9],
+       [ 8, 10, 12]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">

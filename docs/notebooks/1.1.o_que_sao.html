@@ -199,18 +199,22 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="O-que-&#233;-uma-rede-neural?">O que &#233; uma rede neural?<a class="anchor-link" href="#O-que-&#233;-uma-rede-neural?">&#182;</a></h2>
+<h2 id="Redes-Neurais-s&#227;o-aproximadores-de-fun&#231;&#245;es">Redes Neurais s&#227;o aproximadores de fun&#231;&#245;es<a class="anchor-link" href="#Redes-Neurais-s&#227;o-aproximadores-de-fun&#231;&#245;es">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Redes neurais podem ser vistas de maneira bastante simplificada como <strong>funções matemáticas</strong>. Uma simples definição de redes neurais é:</p>
-<blockquote><p>"Redes Neurais são <em>aproximadores de função</em>"</p>
-</blockquote>
-<p>Desse modo, similar à funções, as redes neurais possuem entradas e saídas. As entradas são representadas pelas amostras dos seus dados. Em geral, elas são matrizes $NxD$, onde $N$ (#linhas) <strong>representa o número de amostras</strong> que seu banco de dados tem e $D$ (#colunas) <strong>representa a quantidade de atributos</strong> de cada amostra, também conhecida por <em>dimensionalidade</em>. Como exemplo, imagine que tenhamos um banco de dados com 1.000 amostras e cada amostra tem 5 atributos. Logo, nossas entradas seriam representadas por uma matriz $1000x5$, sacou?</p>
-<p><strong>As saídas, por sua vez, representam o que você quer que a sua rede aprenda</strong>. Por exemplo: dado um banco com a altura de determinadas pessoas (entrada), queremos estimar o "peso" dessas pessoas. Nesse caso, o "peso" das pessoas é a variável que queremos estimar. Portanto, o "peso" nesse caso representaria a nossa saída. Sempre que a nossa saída é conhecida, nós dizemos que esse tipo de problema é um problema de <strong>Aprendizagem Supervisionada</strong>. Há casos em que não necessariamente o nosso problema tem uma saída explícita. Nesse caso, teremos uma <strong>Aprendizagem Não-Supervisionada</strong>. Além disso, quando a <strong>saída assume qualquer valor real</strong> (0, 1.2, 3.14, -26, +34, ...), nós dizemos que temos um <strong>Problema de Regressão</strong>. Por outro lado, quando a <strong>saída é discreta</strong> (0/1, homem/mulher, cachorro/gato/passarinho), nós temos <strong>Problemas de Classificação</strong>.</p>
+<p>Redes neurais podem ser vistas de maneira bastante simplificada como <strong>funções matemáticas</strong>.</p>
+
+<pre><code>Entradas: x ----&gt; Computação: f ------&gt; Saídas: f(x)</code></pre>
+<p><strong>Matemática</strong></p>
+<p>$f(x) = x \times 2 + 3$</p>
+<p><strong>Python</strong></p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span>
+</pre></div>
 
 </div>
 </div>
@@ -218,19 +222,37 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Arquitetura-de-Redes-Neurais">Arquitetura de Redes Neurais<a class="anchor-link" href="#Arquitetura-de-Redes-Neurais">&#182;</a></h3><p>Redes Neurais são definidas em termos de camadas. Em geral, <strong>a primeira camada representa a entrada da rede, enquanto a última camada representa a saída</strong>. Todas as camadas que estão entre as camadas de entrada e saída são chamadas de <strong>camadas escondidas</strong> (ou <em>hidden layers</em>). Um exemplo de uma Rede Neural com 2 camadas escondidas pode ser vista na figura abaixo:</p>
-<p><img align='center' src='https://cdn-images-1.medium.com/max/1200/0*hzIQ5Fs-g8iBpVWq.jpg' width=500></p>
-<p><a href="https://cdn-images-1.medium.com/max/1200/0*hzIQ5Fs-g8iBpVWq.jpg">Fonte da imagem</a></p>
-<p>Com exceção da camada de entrada, toda camada de uma rede é composta pela seguintes propriedades:</p>
-<ul>
-<li><strong>número de neurônios</strong>: na figura acima, as duas camadas escondidas tem 4 neurônios, enquanto a camada de saída tem apenas 1.</li>
-<li><strong>parâmetros</strong>: cada neurônio recebe como entrada todos as saídas dos neurônios das camadas anteriores. Cada entrada dessa é multiplicada por um peso correspondente. <strong>Tais pesos representam o que a Rede Neural pode ajustar para encontrar a solução do problema e são conhecidos como parâmetros</strong>. </li>
-</ul>
-<blockquote><p>⚠️ <strong>Cuidado: não confunda parâmetro com hiperparâmetros!</strong> Parâmetros são o que a sua rede usa para aprender (pesos e bias), enquanto hiperparâmetros são o que você define acerca da sua rede (número de camadas, qtde. de neurônios por camada, função de ativação de cada camada, etc...)</p>
+<p>Assim, uma simples definição de redes neurais é:</p>
+<blockquote><p>"Redes Neurais são <em>aproximadores de funções</em>"</p>
 </blockquote>
+<p>Similar à funções, as redes neurais possuem entradas e saídas. As entradas são representadas por amostras dos seus dados. As saídas, por sua vez, dependem de que tarefa estamos desempenhando.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Redes-Neurais-s&#227;o-constru&#237;das-a-partir-de-camadas">Redes Neurais s&#227;o constru&#237;das a partir de camadas<a class="anchor-link" href="#Redes-Neurais-s&#227;o-constru&#237;das-a-partir-de-camadas">&#182;</a></h2><p>Redes Neurais são definidas em termos de camadas. <strong>A primeira camada representa as entradas da rede, enquanto a última camada representa as saídas</strong>.</p>
+<p>Todas as camadas que estão entre as camadas de entrada e saída são chamadas de <strong>camadas escondidas</strong> (ou <em>hidden layers</em>). Um exemplo de uma Rede Neural com 2 camadas escondidas pode ser vista na figura abaixo:</p>
+<p><img src="images/rede_neural.png" alt=""></p>
+<h3 id="Sobre-as-camadas...">Sobre as camadas...<a class="anchor-link" href="#Sobre-as-camadas...">&#182;</a></h3><p>Com exceção da camada de entrada, toda camada de uma rede é composta pela seguintes propriedades:</p>
 <ul>
-<li><strong>função de ativação</strong>: cada neurônio da rede tem uma função de ativação embutida. Elas são responsáveis por dar o poder de não-linearidade à rede - quando você usa uma função de ativação não-linear (<em>sigmoid</em>, <em>tanh</em>, <em>ReLU</em>, etc...), obviamente. Nós estudaremos sobre elas mais à frente um pouco.</li>
+<li><p><strong>número de neurônios</strong>: na figura acima, a primeira camada escondida tem 4 neurônios, já a segunda camada escondida tem 3 neurônios, enquanto a camada de saída tem apenas 1. Cada neurônio representa um valor.</p>
+</li>
+<li><p><strong>parâmetros</strong>: cada neurônio recebe como entrada todos as saídas dos neurônios das camadas anteriores. Cada entrada dessa é multiplicada por um peso correspondente. <strong>Tais pesos representam o que a Rede Neural pode ajustar para encontrar a solução do problema e são conhecidos como parâmetros</strong>.</p>
+</li>
 </ul>
+<p><strong>A imagem acima mostra apenas uma arquitetura possível para uma rede neural.</strong> Existem vários outros tipos de arquiteturas e outros tipos de camadas que podemos usar para construir uma rede neural. Nessa parte do curso iremos focar nessa arquitetura que se chama [MultiLayerPerceptron (MLP)].</p>
+<p>Todas essas camadas são chamadas <strong>camadas densas</strong>. A arquitetura MLP é caracterizada por várias camadas densas uma após a outra (várias camadas intermediárias). Apesar de na imagem acima termos escolhido mostrar apenas 2 camadas intermediárias poderíamos ter quantas quiséssemos, com quantos nós quiséssemos! O número de nós de entrada e de saída são fixos dependendo do problema que estamos tentando resolver.</p>
+<h3 id="Entendendo-a-matem&#225;tica">Entendendo a matem&#225;tica<a class="anchor-link" href="#Entendendo-a-matem&#225;tica">&#182;</a></h3><p>Vamos focar apenas na computação que envolve o segundo nó da segunda camada intermediária:</p>
+<p><img src="images/focando_rede_neural.png" alt=""></p>
+<p>Cada peso (linha conectando os neurônios da camada anterior a esse neurônio) é um número, e cada nó também representa um número.</p>
+<p><img src="images/focando_rede_neural2.png" alt=""></p>
+<p>Interpretamos esse número como a saída do neurônio, se a saída é um valor alto (&gt; 0) dizemos que o neurônio <strong>foi ativado</strong>. Como a imagem sugere, utilizamos a saída dos neurônios anteriores para calcular a saída do próximo neurônio. Mas como?</p>
+$$SN_j = f(\sum{(SN_i \cdot pij)} + b_j)$$<p>$SN_j$ = Saída do Neurônio j<br>
+$P_ij$ = Peso que liga o neurônio i ao neurônio j<br>
+$b_j$ = Bias de do neurônio j</p>
 
 </div>
 </div>
@@ -238,6 +260,340 @@ body {
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">relu</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="k">def</span> <span class="nf">liga_neuronios</span><span class="p">(</span><span class="n">saida_neuronios_da_camada_anterior</span><span class="p">,</span> <span class="n">pesos_neuronio</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="n">saida_neuronio</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="c1"># Soma ponderada dos pesos com a saída</span>
+    <span class="k">for</span> <span class="n">saida_neuronio_anterior</span><span class="p">,</span> <span class="n">peso</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">saida_neuronios_da_camada_anterior</span><span class="p">,</span> <span class="n">pesos_neuronio</span><span class="p">):</span>
+        <span class="n">saida_neuronio</span> <span class="o">+=</span> <span class="n">saida_neuronio_anterior</span> <span class="o">*</span> <span class="n">peso</span>
+    
+    <span class="c1"># Adiciona bias</span>
+    <span class="n">saida_neuronio</span> <span class="o">+=</span> <span class="n">bias</span>
+    
+    <span class="c1"># Aplica função de ativação</span>
+    <span class="n">saida_neuronio</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">saida_neuronio</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">saida_neuronio</span>
+
+<span class="c1"># Exemplo da imagem</span>
+<span class="n">liga_neuronios</span><span class="p">([</span><span class="mf">4.1</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">4.1</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">relu</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>10.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>Ok... então para calcular a saída de um neurônio, eu faço a soma ponderada entre os pesos e todas as saídas dos neurônios da camada anterior. Ate aí tudo bem... mas aí eu somo a isso uma coisa chamada bias e depois aplico sobre esse valor uma função de ativação?</p>
+</blockquote>
+<p>Isso!</p>
+<p><img src="https://raw.githubusercontent.com/arnaldog12/Manual-Pratico-Deep-Learning/master/images/perceptron.png" alt="">
+Imagem de: <a href="https://github.com/arnaldog12/Manual-Pratico-Deep-Learning/blob/master/Perceptron.ipynb">https://github.com/arnaldog12/Manual-Pratico-Deep-Learning/blob/master/Perceptron.ipynb</a></p>
+<blockquote><p>OBS: Se isolarmos um nó da rede neural temos o que é chamado <strong>perceptron</strong>.</p>
+</blockquote>
+<h3 id="Fun&#231;&#227;o-de-Ativa&#231;&#227;o">Fun&#231;&#227;o de Ativa&#231;&#227;o<a class="anchor-link" href="#Fun&#231;&#227;o-de-Ativa&#231;&#227;o">&#182;</a></h3><p>Como o próprio nome indica é uma função, porém uma função matemática. Por enquanto não vamos nos preocupar muito com ela, iremos ver mais sobre funções de ativação na seção 1.5.</p>
+<p>Por enquanto o que vou dizer é: ReLU, que foi a função que utilizamos no código anterior, é uma das mais utilizadas e são comumente utilizadas entre as camadas intermediárias. Na camada final geralmente não utilizamos função de ativação ou utilizamos alguma outra função (não relu).</p>
+<h3 id="Bias">Bias<a class="anchor-link" href="#Bias">&#182;</a></h3><p>O bias é um termo independente da entrada que existe para nos dar mobilidade!</p>
+<p>Por exemplo, considere a seguinte função:</p>
+<p>y = 2 * x</p>
+<p>Essa função tem uma mobilidade limitada, ela passa pela origem (se x = 0, y = 0) e não podemos mudar isso :(. Porém se essa função fosse:</p>
+<p>y = 2 * x + bias</p>
+<p>Ao modificar o bias, modificamos a função assim podemos fazer com que a função vá mais para esquerda ou direita, não mais sendo forçada a passar pela origem.</p>
+<p>Na nossa rede o bias faz um papel similar! Nos dando liberdade para mover a função que estamos aprendendo, lembra que redes neurais são aproximadores de função? Pois é, literalmente!</p>
+<p><a href="https://stackoverflow.com/questions/2480650/role-of-bias-in-neural-networks">Mais informações sobre bias (em inglês) nesse link</a>.</p>
+<p><strong>Importante</strong></p>
+<p>Nos diagramas que mostramos, o bias não era mostrado, por que? Geralmente por motivos de visualização, abaixo segue nossa rede reural com o bias no diagrama:</p>
+<p><img src="images/bias_rede_neural.png" alt=""></p>
+<p>O bias é um nó na rede como qualquer outro, porém ele não se conecta aos nós da camada anterior, podemos pensar que seu valor é fixo e igual a 1.</p>
+<blockquote><p><em>“Se hoje é o Dia da rede neural, ontem eu disse que rede neural... o dia da rede neural é dia da camada, do peso e das funções de ativação, mas também é o dia dos bias. Sempre que você olha uma camada densa, há sempre uma figura oculta, que é um bias atrás, o que é algo muito importante.”</em> - Marianne Monteiro.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Jutando-os-peda&#231;os-e-codando-uma-Rede-Neural">Jutando os peda&#231;os e codando uma Rede Neural<a class="anchor-link" href="#Jutando-os-peda&#231;os-e-codando-uma-Rede-Neural">&#182;</a></h2><p>Vamos codar a seguinte rede neural:</p>
+<p><img src="images/codando_rede_neural.png" alt=""></p>
+<blockquote><p>Os valores escolhidos são arbitrários e a saída não significa nada.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ------- Camada de entrada -------</span>
+<span class="c1"># Definimos esse valor! Na prática irá vir de uma base de dados.</span>
+<span class="n">entrada</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span>
+
+<span class="c1"># ------- Primeira camada ---------</span>
+<span class="c1"># n1_c1 = primeiro neuronio da primeira camada</span>
+<span class="n">n1_c1</span> <span class="o">=</span> <span class="n">liga_neuronios</span><span class="p">([</span><span class="n">entrada</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">4.3</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">relu</span><span class="p">)</span>
+<span class="n">n2_c1</span> <span class="o">=</span> <span class="n">liga_neuronios</span><span class="p">([</span><span class="n">entrada</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.3</span><span class="p">],</span> <span class="mf">2.2</span><span class="p">,</span> <span class="n">relu</span><span class="p">)</span>
+
+<span class="c1"># ------- Segunda camada ---------</span>
+<span class="n">n1_c2</span> <span class="o">=</span> <span class="n">liga_neuronios</span><span class="p">([</span><span class="n">n1_c1</span><span class="p">,</span> <span class="n">n2_c1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">],</span> <span class="mf">2.7</span><span class="p">,</span> <span class="n">relu</span><span class="p">)</span>
+
+<span class="c1"># ------- Camada de saída --------</span>
+
+<span class="c1"># Na última camada não usamos ReLU, lembra? Podemos simplesmente não usar</span>
+<span class="c1"># função de entrada, para tal é só usar uma função que não faz nada</span>
+<span class="c1"># essa função é também denominada como linear nos frameworks de DL.</span>
+<span class="k">def</span> <span class="nf">faz_nada</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">saida</span> <span class="o">=</span> <span class="n">liga_neuronios</span><span class="p">([</span><span class="n">n1_c2</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.1</span><span class="p">],</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">faz_nada</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">saida</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>95.00099999999999
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A grande sacada é das redes neurais é a definição de camadas e como elas se comunicam. Uma rede neural consiste basicamente da mesma computação baseada em camadas onde a entrada de uma camada é a camada imediamente anterior a ela.</p>
+<p>Ou seja: uma camada aprende a partir das camadas anteriores!</p>
+<p>Isso permite que a rede neural busque modificar os pesos de uma camada de maneira a gerar representações melhores para que a próxima camada tenha acesso a informações mais relevantes pra resolver o problema!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Deixando-o-c&#243;digo-eficiente,-bonito-e-cheiroso">Deixando o c&#243;digo eficiente, bonito e cheiroso<a class="anchor-link" href="#Deixando-o-c&#243;digo-eficiente,-bonito-e-cheiroso">&#182;</a></h3><p>TODO</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A ideia é que não sabemos qual o melhor <code>f</code> possível, e poderíamos tentar várias funções para se <strong>ajustar</strong> aos dados. Para isso modificamos os pesos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>⚠️ <strong>Cuidado: não confunda parâmetro com hiperparâmetros!</strong> Parâmetros são o que a sua rede usa para aprender (pesos e bias), enquanto hiperparâmetros são o que você define acerca da sua rede (número de camadas, qtde. de neurônios por camada, função de ativação de cada camada, etc...)</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Em-busca-da-fun&#231;&#227;o-perfeita">Em busca da fun&#231;&#227;o perfeita<a class="anchor-link" href="#Em-busca-da-fun&#231;&#227;o-perfeita">&#182;</a></h2><h3 id="Exemplo:-base-dados-Iris">Exemplo: <a href="https://mari-linhares.github.io/codando-deep-learning/notebooks/glossario.html#iris">base dados Iris</a><a class="anchor-link" href="#Exemplo:-base-dados-Iris">&#182;</a></h3><p>Digamos que para um exemplo da base de dados queremos determinar qual a espécie dessa planta.</p>
+<p><strong>Entradas</strong></p>
+<p>A base de dados iris tem 4 <strong><a href="https://mari-linhares.github.io/codando-deep-learning/notebooks/glossario.html#atributos">atributos</a></strong> de uma planta que iremos usar como entrada.</p>
+<p><strong>Saídas</strong></p>
+<p>Neste caso a saída que nos interessa é a espécie da planta. Então digamos que a saída é um número que indica qual a espécie:</p>
+<p>0 = Iris Setosa , 1 = Iris Versicolour, 2 = Iris Virginica</p>
+<h3 id="Obtendo-a-base-de-dados">Obtendo a base de dados<a class="anchor-link" href="#Obtendo-a-base-de-dados">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Ignorar warnings</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="c1"># Trabalhar com os dados</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="k">import</span> <span class="n">fetch_mldata</span>
+
+<span class="c1"># Atributos: iris_dataset.data</span>
+<span class="c1"># Espécie: iris_dataset.target</span>
+<span class="n">iris_dataset</span> <span class="o">=</span> <span class="n">fetch_mldata</span><span class="p">(</span><span class="s1">&#39;iris&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Numero de exemplos na base:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">iris_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Atributos da primeira planta:&#39;</span><span class="p">,</span> <span class="n">iris_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Especie da primeira planta:&#39;</span><span class="p">,</span> <span class="n">iris_dataset</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Numero de exemplos na base: 150
+Atributos da primeira planta: [-0.555556  0.25     -0.864407 -0.916667]
+Especie da primeira planta: 1
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/marianne/.local/lib/python3.6/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function fetch_mldata is deprecated; fetch_mldata was deprecated in version 0.20 and will be removed in version 0.22
+  warnings.warn(msg, category=DeprecationWarning)
+/home/marianne/.local/lib/python3.6/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function mldata_filename is deprecated; mldata_filename was deprecated in version 0.20 and will be removed in version 0.22
+  warnings.warn(msg, category=DeprecationWarning)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Vamos-codar-uma-fun&#231;&#227;o-que-resolve-esse-problema!">Vamos codar uma fun&#231;&#227;o que resolve esse problema!<a class="anchor-link" href="#Vamos-codar-uma-fun&#231;&#227;o-que-resolve-esse-problema!">&#182;</a></h3><p>Uma função para resolver esse problema precisa receber 4 parâmetros (cada um dos atributos da planta) e produzir uma saída (espécie da planta).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">x4</span><span class="p">):</span>
+    <span class="c1"># Não importa os atributos pra mim a resposta é sempre: Setosa!!!!</span>
+    <span class="k">return</span> <span class="mi">0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">iris_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">iris_dataset</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">iris_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">iris_dataset</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">iris_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">iris_dataset</span><span class="o">.</span><span class="n">target</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0 1
+0 1
+0 3
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A função acima é válida para este problema (4 entradas, 1 saída), o problema dela é que... Ela não ta ajudando a gente no nosso problema em nada! Ela simplesmente ignora os atributos e nos diz que qualquer exemplo é da espécie Setosa.</p>
+<p>Como podemos avaliar o quão boa é essa função? Uma métrica possível é <a href="https://mari-linhares.github.io/codando-deep-learning/notebooks/glossario.html#acuracia">acurácia</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Por exemplo: dado um banco com a altura de determinadas pessoas (entrada), queremos estimar o "peso" dessas pessoas. Nesse caso, o "peso" das pessoas é a variável que queremos estimar. Portanto, o "peso" nesse caso representaria a nossa saída. Sempre que a nossa saída é conhecida, nós dizemos que esse tipo de problema é um problema de <strong>Aprendizagem Supervisionada</strong>.Há casos em que não necessariamente o nosso problema tem uma saída explícita. Nesse caso, teremos uma <strong>Aprendizagem Não-Supervisionada</strong>.</p>
+<p>Além disso, quando a <strong>saída assume qualquer valor real</strong> (0, 1.2, 3.14, -26, +34, ...), nós dizemos que temos um <strong>Problema de Regressão</strong>. Por outro lado, quando a <strong>saída é discreta</strong> (0/1, saudável/doente, cachorro/gato/passarinho), nós temos <strong>Problemas de Classificação</strong>.</p>
+<p>A grande sacada é o que acontece dentro de <code>f</code>! A ideia é que não sabemos qual o melhor <code>f</code> possível, e poderíamos tentar várias funções para se <strong>ajustar</strong> aos dados.</p>
+<p>Em geral, elas são matrizes $NxD$, onde $N$ (#linhas) <strong>representa o número de amostras</strong> que seu banco de dados tem e $D$ (#colunas) <strong>representa a quantidade de atributos</strong> de cada amostra, também conhecida por <em>dimensionalidade</em>. Como exemplo, imagine que tenhamos um banco de dados com 1.000 amostras e cada amostra tem 5 atributos. Logo, nossas entradas seriam representadas por uma matriz $1000x5$, sacou?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As entradas são representadas pelas amostras dos seus dados. Em geral, elas são matrizes $NxD$, onde $N$ (#linhas) <strong>representa o número de amostras</strong> que seu banco de dados tem e $D$ (#colunas) <strong>representa a quantidade de atributos</strong> de cada amostra, também conhecida por <em>dimensionalidade</em>. Como exemplo, imagine que tenhamos um banco de dados com 1.000 amostras e cada amostra tem 5 atributos. Logo, nossas entradas seriam representadas por uma matriz $1000x5$, sacou?</p>
+<p><strong>As saídas, por sua vez, representam o que você quer que a sua rede aprenda</strong>. Por exemplo: dado um banco com a altura de determinadas pessoas (entrada), queremos estimar o "peso" dessas pessoas. Nesse caso, o "peso" das pessoas é a variável que queremos estimar. Portanto, o "peso" nesse caso representaria a nossa saída. Sempre que a nossa saída é conhecida, nós dizemos que esse tipo de problema é um problema de <strong>Aprendizagem Supervisionada</strong>. Há casos em que não necessariamente o nosso problema tem uma saída explícita. Nesse caso, teremos uma <strong>Aprendizagem Não-Supervisionada</strong>. Além disso, quando a <strong>saída assume qualquer valor real</strong> (0, 1.2, 3.14, -26, +34, ...), nós dizemos que temos um <strong>Problema de Regressão</strong>. Por outro lado, quando a <strong>saída é discreta</strong> (0/1, homem/mulher, cachorro/gato/passarinho), nós temos <strong>Problemas de Classificação</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">MyFirstNeuralNetwork</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -259,7 +615,7 @@ body {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">nn</span> <span class="o">=</span> <span class="n">MyFirstNeuralNetwork</span><span class="p">()</span>
@@ -284,19 +640,6 @@ body {
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
 <hr>
 &copy; 2019 Marianne Linhares, Arnaldo Gualberto
