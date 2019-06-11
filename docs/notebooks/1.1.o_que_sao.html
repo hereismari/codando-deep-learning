@@ -206,7 +206,8 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Redes neurais podem ser vistas de maneira bastante simplificada como <strong>funções matemáticas</strong>.</p>
+<p>Redes neurais podem ser vistas de maneira bastante simplificada <strong>funções matemáticas</strong>.</p>
+<p><strong>Ideia abstrata</strong></p>
 
 <pre><code>Entradas: x ----&gt; Computação: f ------&gt; Saídas: f(x)</code></pre>
 <p><strong>Matemática</strong></p>
@@ -215,6 +216,7 @@ body {
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span>
 </pre></div>
+<p>Similar à funções, as redes neurais possuem entradas e saídas. As entradas são representadas por amostras dos seus dados. As saídas, por sua vez, dependem de que tarefa estamos desempenhando.</p>
 
 </div>
 </div>
@@ -225,7 +227,11 @@ body {
 <p>Assim, uma simples definição de redes neurais é:</p>
 <blockquote><p>"Redes Neurais são <em>aproximadores de funções</em>"</p>
 </blockquote>
-<p>Similar à funções, as redes neurais possuem entradas e saídas. As entradas são representadas por amostras dos seus dados. As saídas, por sua vez, dependem de que tarefa estamos desempenhando.</p>
+<p>A diferenção é que não sabemos qual a função ótima para representar uma entrada:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+       <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="err">?</span> <span class="o">+</span> <span class="err">??</span>
+</pre></div>
+<p>Não sabemos qual o melhor <code>f</code> possível, e poderíamos tentar várias funções para se <strong>ajustar</strong> aos dados. Para isso buscamos <strong>aprender</strong> quais são os melhores <strong>parametros</strong> para a função.</p>
 
 </div>
 </div>
@@ -243,7 +249,7 @@ body {
 <li><p><strong>parâmetros</strong>: cada neurônio recebe como entrada todos as saídas dos neurônios das camadas anteriores. Cada entrada dessa é multiplicada por um peso correspondente. <strong>Tais pesos representam o que a Rede Neural pode ajustar para encontrar a solução do problema e são conhecidos como parâmetros</strong>.</p>
 </li>
 </ul>
-<p><strong>A imagem acima mostra apenas uma arquitetura possível para uma rede neural.</strong> Existem vários outros tipos de arquiteturas e outros tipos de camadas que podemos usar para construir uma rede neural. Nessa parte do curso iremos focar nessa arquitetura que se chama [MultiLayerPerceptron (MLP)].</p>
+<p><strong>A imagem acima mostra apenas uma arquitetura possível para uma rede neural.</strong> Existem vários outros tipos de arquiteturas e outros tipos de camadas que podemos usar para construir uma rede neural. Nessa parte do curso iremos focar nessa arquitetura que se chama <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">MultiLayerPerceptron (MLP)</a>.</p>
 <p>Todas essas camadas são chamadas <strong>camadas densas</strong>. A arquitetura MLP é caracterizada por várias camadas densas uma após a outra (várias camadas intermediárias). Apesar de na imagem acima termos escolhido mostrar apenas 2 camadas intermediárias poderíamos ter quantas quiséssemos, com quantos nós quiséssemos! O número de nós de entrada e de saída são fixos dependendo do problema que estamos tentando resolver.</p>
 <h3 id="Entendendo-a-matem&#225;tica">Entendendo a matem&#225;tica<a class="anchor-link" href="#Entendendo-a-matem&#225;tica">&#182;</a></h3><p>Vamos focar apenas na computação que envolve o segundo nó da segunda camada intermediária:</p>
 <p><img src="images/focando_rede_neural.png" alt=""></p>
@@ -259,17 +265,17 @@ $b_j$ = Bias de do neurônio j</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">relu</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">funcao_de_ativacao</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">0</span>
 
 
-<span class="k">def</span> <span class="nf">liga_neuronios</span><span class="p">(</span><span class="n">saida_neuronios_da_camada_anterior</span><span class="p">,</span> <span class="n">pesos_neuronio</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">liga_neuronios</span><span class="p">(</span><span class="n">saida_neuronios_da_camada_anterior</span><span class="p">,</span> <span class="n">pesos_neuronio</span><span class="p">,</span> <span class="n">peso_bias</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
     <span class="n">saida_neuronio</span> <span class="o">=</span> <span class="mi">0</span>
     
     <span class="c1"># Soma ponderada dos pesos com a saída</span>
@@ -277,7 +283,7 @@ $b_j$ = Bias de do neurônio j</p>
         <span class="n">saida_neuronio</span> <span class="o">+=</span> <span class="n">saida_neuronio_anterior</span> <span class="o">*</span> <span class="n">peso</span>
     
     <span class="c1"># Adiciona bias</span>
-    <span class="n">saida_neuronio</span> <span class="o">+=</span> <span class="n">bias</span>
+    <span class="n">saida_neuronio</span> <span class="o">+=</span> <span class="n">peso_bias</span>
     
     <span class="c1"># Aplica função de ativação</span>
     <span class="n">saida_neuronio</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">saida_neuronio</span><span class="p">)</span>
@@ -285,7 +291,7 @@ $b_j$ = Bias de do neurônio j</p>
     <span class="k">return</span> <span class="n">saida_neuronio</span>
 
 <span class="c1"># Exemplo da imagem</span>
-<span class="n">liga_neuronios</span><span class="p">([</span><span class="mf">4.1</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">4.1</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">relu</span><span class="p">)</span>
+<span class="n">liga_neuronios</span><span class="p">([</span><span class="mf">4.1</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">4.1</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">funcao_de_ativacao</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -298,7 +304,7 @@ $b_j$ = Bias de do neurônio j</p>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[5]:</div>
+    <div class="prompt output_prompt">Out[26]:</div>
 
 
 
@@ -323,18 +329,26 @@ $b_j$ = Bias de do neurônio j</p>
 Imagem de: <a href="https://github.com/arnaldog12/Manual-Pratico-Deep-Learning/blob/master/Perceptron.ipynb">https://github.com/arnaldog12/Manual-Pratico-Deep-Learning/blob/master/Perceptron.ipynb</a></p>
 <blockquote><p>OBS: Se isolarmos um nó da rede neural temos o que é chamado <strong>perceptron</strong>.</p>
 </blockquote>
-<h3 id="Fun&#231;&#227;o-de-Ativa&#231;&#227;o">Fun&#231;&#227;o de Ativa&#231;&#227;o<a class="anchor-link" href="#Fun&#231;&#227;o-de-Ativa&#231;&#227;o">&#182;</a></h3><p>Como o próprio nome indica é uma função, porém uma função matemática. Por enquanto não vamos nos preocupar muito com ela, iremos ver mais sobre funções de ativação na seção 1.5.</p>
-<p>Por enquanto o que vou dizer é: ReLU, que foi a função que utilizamos no código anterior, é uma das mais utilizadas e são comumente utilizadas entre as camadas intermediárias. Na camada final geralmente não utilizamos função de ativação ou utilizamos alguma outra função (não relu).</p>
+<h3 id="Fun&#231;&#227;o-de-Ativa&#231;&#227;o">Fun&#231;&#227;o de Ativa&#231;&#227;o<a class="anchor-link" href="#Fun&#231;&#227;o-de-Ativa&#231;&#227;o">&#182;</a></h3><p>Como o próprio nome indica é uma função matemática. Por enquanto não vamos nos preocupar muito com ela, iremos ver mais sobre funções de ativação na seção 1.5.</p>
+<p>Por enquanto só vou dizer 2 coisas:</p>
+<ul>
+<li>A função de ativação que utilizamos no código anterior se chama ReLU, é uma das mais utilizadas e é comumente utilizada entre as camadas intermediárias. Na camada final geralmente não utilizamos função de ativação ou utilizamos alguma outra função (não relu).</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/937/1*oePAhrm74RNnNEolprmTaQ.png" alt=""></p>
+<ul>
+<li>Como experado de uma função, uma função de ativação transforma uma entrada em alguma outra coisa que obtemos como saída. No caso das funções de ativação é bastante interessante que ela não seja uma reta, por exemplo na imagem acima temos com a ReLU se comporta, ta vendo que ela é tipo um cotovelo dobrado no zero? Esse cotovelo faz com que a reta que define essa função não seja uma linha reta, e é isso que queremos na função de ativação, não precisa ser um cotovelo, poderia ser uma barraguinha, mas precisamos de curvas!
+<img src="https://www.bepantol.com.br/static/media/images/sobrePele-Produtos/cotovelo-ressecado.jpg" alt=""></li>
+</ul>
 <h3 id="Bias">Bias<a class="anchor-link" href="#Bias">&#182;</a></h3><p>O bias é um termo independente da entrada que existe para nos dar mobilidade!</p>
 <p>Por exemplo, considere a seguinte função:</p>
 <p>y = 2 * x</p>
 <p>Essa função tem uma mobilidade limitada, ela passa pela origem (se x = 0, y = 0) e não podemos mudar isso :(. Porém se essa função fosse:</p>
 <p>y = 2 * x + bias</p>
-<p>Ao modificar o bias, modificamos a função assim podemos fazer com que a função vá mais para esquerda ou direita, não mais sendo forçada a passar pela origem.</p>
-<p>Na nossa rede o bias faz um papel similar! Nos dando liberdade para mover a função que estamos aprendendo, lembra que redes neurais são aproximadores de função? Pois é, literalmente!</p>
+<p>Ao modificar o bias, podemos fazer com que a função vá mais para esquerda ou direita, não mais sendo forçada a passar pela origem.</p>
+<p>Na nossa rede o bias faz um papel similar! Nos dando liberdade para mover a função que estamos aprendendo, lembra que redes neurais são aproximadores de funções?</p>
 <p><a href="https://stackoverflow.com/questions/2480650/role-of-bias-in-neural-networks">Mais informações sobre bias (em inglês) nesse link</a>.</p>
 <p><strong>Importante</strong></p>
-<p>Nos diagramas que mostramos, o bias não era mostrado, por que? Geralmente por motivos de visualização, abaixo segue nossa rede reural com o bias no diagrama:</p>
+<p>Nos diagramas que mostramos, o bias não era mostrado, por que? Geralmente pra deixar a visualização mais bonitinha não mostramos o biax, abaixo segue nossa rede reural com o bias no diagrama:</p>
 <p><img src="images/bias_rede_neural.png" alt=""></p>
 <p>O bias é um nó na rede como qualquer outro, porém ele não se conecta aos nós da camada anterior, podemos pensar que seu valor é fixo e igual a 1.</p>
 <blockquote><p><em>“Se hoje é o Dia da rede neural, ontem eu disse que rede neural... o dia da rede neural é dia da camada, do peso e das funções de ativação, mas também é o dia dos bias. Sempre que você olha uma camada densa, há sempre uma figura oculta, que é um bias atrás, o que é algo muito importante.”</em> - Marianne Monteiro.</p>
@@ -348,6 +362,10 @@ Imagem de: <a href="https://github.com/arnaldog12/Manual-Pratico-Deep-Learning/b
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Jutando-os-peda&#231;os-e-codando-uma-Rede-Neural">Jutando os peda&#231;os e codando uma Rede Neural<a class="anchor-link" href="#Jutando-os-peda&#231;os-e-codando-uma-Rede-Neural">&#182;</a></h2><p>Vamos codar a seguinte rede neural:</p>
 <p><img src="images/codando_rede_neural.png" alt=""></p>
+<p>Nomeamos os neurônios pra ficar mais simples de identificá-los no código.</p>
+<ul>
+<li>ni_cj = i-ésimo neuronio da j-ésima camada</li>
+</ul>
 <blockquote><p>Os valores escolhidos são arbitrários e a saída não significa nada.</p>
 </blockquote>
 
@@ -356,7 +374,7 @@ Imagem de: <a href="https://github.com/arnaldog12/Manual-Pratico-Deep-Learning/b
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ------- Camada de entrada -------</span>
@@ -364,18 +382,17 @@ Imagem de: <a href="https://github.com/arnaldog12/Manual-Pratico-Deep-Learning/b
 <span class="n">entrada</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span>
 
 <span class="c1"># ------- Primeira camada ---------</span>
-<span class="c1"># n1_c1 = primeiro neuronio da primeira camada</span>
-<span class="n">n1_c1</span> <span class="o">=</span> <span class="n">liga_neuronios</span><span class="p">([</span><span class="n">entrada</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">4.3</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">relu</span><span class="p">)</span>
-<span class="n">n2_c1</span> <span class="o">=</span> <span class="n">liga_neuronios</span><span class="p">([</span><span class="n">entrada</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.3</span><span class="p">],</span> <span class="mf">2.2</span><span class="p">,</span> <span class="n">relu</span><span class="p">)</span>
+<span class="n">n1_c1</span> <span class="o">=</span> <span class="n">liga_neuronios</span><span class="p">([</span><span class="n">entrada</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">4.3</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">funcao_de_ativacao</span><span class="p">)</span>
+<span class="n">n2_c1</span> <span class="o">=</span> <span class="n">liga_neuronios</span><span class="p">([</span><span class="n">entrada</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.3</span><span class="p">],</span> <span class="mf">2.2</span><span class="p">,</span> <span class="n">funcao_de_ativacao</span><span class="p">)</span>
 
 <span class="c1"># ------- Segunda camada ---------</span>
-<span class="n">n1_c2</span> <span class="o">=</span> <span class="n">liga_neuronios</span><span class="p">([</span><span class="n">n1_c1</span><span class="p">,</span> <span class="n">n2_c1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">],</span> <span class="mf">2.7</span><span class="p">,</span> <span class="n">relu</span><span class="p">)</span>
+<span class="n">n1_c2</span> <span class="o">=</span> <span class="n">liga_neuronios</span><span class="p">([</span><span class="n">n1_c1</span><span class="p">,</span> <span class="n">n2_c1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">],</span> <span class="mf">2.7</span><span class="p">,</span> <span class="n">funcao_de_ativacao</span><span class="p">)</span>
 
 <span class="c1"># ------- Camada de saída --------</span>
 
 <span class="c1"># Na última camada não usamos ReLU, lembra? Podemos simplesmente não usar</span>
-<span class="c1"># função de entrada, para tal é só usar uma função que não faz nada</span>
-<span class="c1"># essa função é também denominada como linear nos frameworks de DL.</span>
+<span class="c1"># função de ativação, para tal é só usar uma função que não faz nada (função identidade)</span>
+<span class="c1"># essa função é também denominada como linear nos frameworks de Deep Learning.</span>
 <span class="k">def</span> <span class="nf">faz_nada</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span>
 
@@ -420,7 +437,91 @@ Imagem de: <a href="https://github.com/arnaldog12/Manual-Pratico-Deep-Learning/b
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Deixando-o-c&#243;digo-eficiente,-bonito-e-cheiroso">Deixando o c&#243;digo eficiente, bonito e cheiroso<a class="anchor-link" href="#Deixando-o-c&#243;digo-eficiente,-bonito-e-cheiroso">&#182;</a></h3><p>TODO</p>
+<h3 id="Deixando-o-c&#243;digo-eficiente,-bonito-e-cheiroso">Deixando o c&#243;digo eficiente, bonito e cheiroso<a class="anchor-link" href="#Deixando-o-c&#243;digo-eficiente,-bonito-e-cheiroso">&#182;</a></h3><p>Como a boa programadora que você é, deve ter notado que o código anterior é bastante ineficiente!!!</p>
+<p><strong>PERGUNTA: mais espeficamente para cada nó em uma rede neural quantas operações são necessárias para calcular sua saída?</strong></p>
+<p>Pense a respeito, a resposta segue abaixo...</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Para calcular a saída desse nó precisamos cacular a soma ponderada de todos os nós da camada anterior, digamos que a camada anterior tem N nós.</p>
+<p>Então precisaríamos de O(N) operações para calcular a saída de um único nó nessa camada.</p>
+<p>Então, por exemplo, se tivermos 1 camada de entrada com 100 nós e 2 camadas intermediárias com 200 nós cada, precisaríamos realizar o seguinte número de operações em cada camada:</p>
+<ul>
+<li>camada intermediária 1: 100 * 200 (100 entradas para cada nó, 200 nós) = 20000</li>
+<li>camada intermediária 2: 200 * 200 (200 entradas para cada nó, 200 nós) = 40000</li>
+</ul>
+<p>Totalizando: 60000 operações para calcular todas as saídas.</p>
+<p>Isso é péssimo :((! Queremos várias camadas na nossa rede, não podemos ser tão lentos :((</p>
+<p>Felizmente temos uma solução para deixar esse cálculo mais eficiente!!!</p>
 
 </div>
 </div>
@@ -428,7 +529,184 @@ Imagem de: <a href="https://github.com/arnaldog12/Manual-Pratico-Deep-Learning/b
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>A ideia é que não sabemos qual o melhor <code>f</code> possível, e poderíamos tentar várias funções para se <strong>ajustar</strong> aos dados. Para isso modificamos os pesos.</p>
+<p><img src="https://cdn-images-1.medium.com/freeze/max/1000/1*W8c9Eg-rJgLVhPmx4TD3Rw.jpeg?q=20" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Perceba que:</p>
+<ol>
+<li>Cada nó em uma camada é independente dos demais! Então podemos "paralelizar" essa computação!</li>
+<li>Uma camada L precisa de todos os nós da camada L-1 computados.</li>
+</ol>
+<p><img src="images/focando_rede_neural2.png" alt=""></p>
+<p>Agora vem a mágica: 3. Podemos computar todos os valores de uma camada através de multiplicação de matrizes</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="https://cdn.kastatic.org/googleusercontent/rk4fR1jNJsGUfdHOc87UzuQh2zokwYDoVo3Hk1m3s6ToGDgW6KxgrsUeIj8-CJeV6cNf6WB8B6sRHt3BoGBdVY7h" alt=""></p>
+<p><a href="https://www.google.com/url?sa=i&amp;source=images&amp;cd=&amp;ved=2ahUKEwjn4ITk1eHiAhXiHbkGHc0XCYsQjRx6BAgBEAU&amp;url=https%3A%2F%2Fpt.khanacademy.org%2Fmath%2Fprecalculus%2Fprecalc-matrices%2Fmultiplying-matrices-by-matrices%2Fa%2Fmultiplying-matrices&amp;psig=AOvVaw3HY59G-fpqGsmbzJ-GztER&amp;ust=1560350722426497">Imagem de Khan Academy</a></p>
+<p><img src="images/mult_matriz.png" alt=""></p>
+<h3 id="Por-que-utilizar-multiplica&#231;&#227;o-de-matrizes-&#233;-mais-eficiente?">Por que utilizar multiplica&#231;&#227;o de matrizes &#233; mais eficiente?<a class="anchor-link" href="#Por-que-utilizar-multiplica&#231;&#227;o-de-matrizes-&#233;-mais-eficiente?">&#182;</a></h3><ol>
+<li>GPUs manipulam matrizes de forma extremamente eficiente!</li>
+<li>Existem otimizações para lidar com esse tipo de operação <a href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms">de maneira eficiente</a></li>
+<li>Multiplicação de matrizes é altamente paralelizável</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Codando-uma-rede-neural-com-multiplica&#231;&#227;o-de-matrizes">Codando uma rede neural com multiplica&#231;&#227;o de matrizes<a class="anchor-link" href="#Codando-uma-rede-neural-com-multiplica&#231;&#227;o-de-matrizes">&#182;</a></h2><p>Vamos modificar o código que fizemos anteriormente para utilizar multiplicação de matrizes.</p>
+<p><img src="images/codando_rede_neural.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Manipula vetores e matrizes</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">class</span> <span class="nc">DenseLayer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">activation_function</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_weights</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span> <span class="o">=</span> <span class="n">activation_function</span>
+        
+    <span class="k">def</span> <span class="nf">set_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_weights</span> <span class="o">=</span> <span class="n">weights</span>
+        
+    <span class="k">def</span> <span class="nf">_add_bias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_input</span><span class="p">):</span>
+        <span class="c1"># Adiciona 1&#39;s a entrada</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_input</span><span class="p">)),</span> <span class="n">_input</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_input</span><span class="p">):</span>
+        <span class="c1"># adiciona bias a entrada, lembra?</span>
+        <span class="n">input_with_bias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_bias</span><span class="p">(</span><span class="n">_input</span><span class="p">)</span>
+        <span class="c1"># f_act(entrada * transposta(pesos))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">input_with_bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weights</span><span class="o">.</span><span class="n">transpose</span><span class="p">()))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Antes</span>
+<span class="c1"># def funcao_de_ativacao(x):</span>
+<span class="c1">#     if x &gt; 0:</span>
+<span class="c1">#         return x</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         return 0</span>
+
+<span class="c1"># Agora</span>
+<span class="k">def</span> <span class="nf">funcao_de_ativacao</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ------- Camada de entrada -------</span>
+<span class="c1"># Definimos esse valor! Na prática irá vir de uma base de dados.</span>
+<span class="n">entrada</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span>
+
+<span class="c1"># ------- Primeira camada ---------</span>
+<span class="c1"># Antes</span>
+<span class="c1"># n1_c1 = liga_neuronios([entrada], [-4.3], 1, funcao_de_ativacao)</span>
+<span class="c1"># n2_c1 = liga_neuronios([entrada], [-1.3], 2.2, funcao_de_ativacao)</span>
+
+<span class="c1"># Agora</span>
+<span class="n">camada1</span> <span class="o">=</span> <span class="n">DenseLayer</span><span class="p">(</span><span class="n">funcao_de_ativacao</span><span class="p">)</span>
+<span class="n">camada1</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.3</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.3</span><span class="p">]]))</span>
+
+<span class="c1"># ------- Segunda camada ---------</span>
+<span class="c1"># Antes</span>
+<span class="c1"># n1_c2 = liga_neuronios([n1_c1, n2_c1], [0.2, 3.3], 2.7, funcao_de_ativacao)</span>
+
+<span class="c1"># Agora</span>
+<span class="n">camada2</span> <span class="o">=</span> <span class="n">DenseLayer</span><span class="p">(</span><span class="n">funcao_de_ativacao</span><span class="p">)</span>
+<span class="n">camada2</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.7</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">]]))</span>
+
+
+<span class="c1"># ------- Camada de saída --------</span>
+
+<span class="c1"># Na última camada não usamos ReLU, lembra? Podemos simplesmente não usar</span>
+<span class="c1"># função de ativação, para tal é só usar uma função que não faz nada (função identidade)</span>
+<span class="c1"># essa função é também denominada como linear nos frameworks de Deep Learning.</span>
+<span class="k">def</span> <span class="nf">faz_nada</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+<span class="c1"># Antes</span>
+<span class="c1"># saida = liga_neuronios([n1_c2], [4.1], -10, faz_nada)</span>
+
+<span class="c1"># Agora</span>
+<span class="n">ultima_camada</span> <span class="o">=</span> <span class="n">DenseLayer</span><span class="p">(</span><span class="n">faz_nada</span><span class="p">)</span>
+<span class="n">ultima_camada</span><span class="o">.</span><span class="n">set_weights</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mf">4.1</span><span class="p">]]))</span>
+
+<span class="n">saida</span> <span class="o">=</span> <span class="n">ultima_camada</span><span class="p">(</span><span class="n">camada2</span><span class="p">(</span><span class="n">camada1</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">entrada</span><span class="p">]))))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">saida</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[ 95.001]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Refer&#234;ncias">Refer&#234;ncias<a class="anchor-link" href="#Refer&#234;ncias">&#182;</a></h2><p>Este conteúdo é baseado nos seguintes materiais:</p>
+<ul>
+<li><a href="https://github.com/iamtrask/Grokking-Deep-Learning">Capítulo 3</a> de Grokking Deep Learning.</li>
+<li><a href="https://en.wikipedia.org/wiki/Perceptron">Perceptron</a> da Wikipedia</li>
+<li><a href="https://en.wikipedia.org/wiki/Frank_Rosenblatt">Frank Rosenblatt</a> da Wikipedia</li>
+<li><a href="https://en.wikipedia.org/wiki/Geoffrey_Hinton">Geoffrey Hinton</a> da Wikipedia</li>
+<li><a href="https://en.wikipedia.org/wiki/Backpropagation">Backpropagation</a> da Wikipedia</li>
+</ul>
 
 </div>
 </div>
@@ -625,21 +903,6 @@ Especie da primeira planta: 1
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Refer&#234;ncias">Refer&#234;ncias<a class="anchor-link" href="#Refer&#234;ncias">&#182;</a></h2><p>Este conteúdo é baseado nos seguintes materiais:</p>
-<ul>
-<li><a href="https://github.com/iamtrask/Grokking-Deep-Learning">Capítulo 3</a> de Grokking Deep Learning.</li>
-<li><a href="https://en.wikipedia.org/wiki/Perceptron">Perceptron</a> da Wikipedia</li>
-<li><a href="https://en.wikipedia.org/wiki/Frank_Rosenblatt">Frank Rosenblatt</a> da Wikipedia</li>
-<li><a href="https://en.wikipedia.org/wiki/Geoffrey_Hinton">Geoffrey Hinton</a> da Wikipedia</li>
-<li><a href="https://en.wikipedia.org/wiki/Backpropagation">Backpropagation</a> da Wikipedia</li>
-</ul>
-
-</div>
-</div>
 </div>
 <hr>
 &copy; 2019 Marianne Linhares, Arnaldo Gualberto
