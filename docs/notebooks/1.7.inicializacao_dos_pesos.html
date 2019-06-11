@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="ipynb_website:version" content="0.9.6" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css" href="../css/jt.css">
+<link rel="stylesheet" type="text/css" href="../css/readable.css">
+<link rel="stylesheet" type="text/css" href="../css/toc2.css">
+
+<link href="../site_libs/jqueryui-1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="../site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="../site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="../site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+
+<link rel="stylesheet"
+      href="../site_libs/highlightjs-1.1/textmate.css"
+      type="text/css" />
+
+<script src="../site_libs/highlightjs-1.1/highlight.js"></script>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+<script src="../js/doc_toc.js"></script>
+<script src="../js/docs.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+        },
+        "HTML-CSS": {
+            preferredFont: "TeX",
+            availableFonts: ["TeX"],
+            styles: {
+                scale: 110,
+                ".MathJax_Display": {
+                    "font-size": "110%",
+                }
+            }
+        }
+    });
+</script>
+<script>
+function filterDataFrame(id) {
+    var input = document.getElementById("search_" + id);
+    var filter = input.value.toUpperCase();
+    var table = document.getElementById("dataframe_" + id);
+    var tr = table.getElementsByTagName("tr");
+    // Loop through all table rows, and hide those who don't match the search query
+    for (var i = 1; i < tr.length; i++) {
+        for (var j = 0; j < tr[i].cells.length; ++j) {
+            var matched = false;
+            if (tr[i].cells[j].innerHTML.toUpperCase().indexOf(filter) != -1) {
+                tr[i].style.display = "";
+                matched = true
+                break;
+            }
+            if (!matched)
+                tr[i].style.display = "none";
+        }
+    }
+}
+function sortDataFrame(id, n, dtype) {
+    var table = document.getElementById("dataframe_" + id);
+    var tb = table.tBodies[0]; // use `<tbody>` to ignore `<thead>` and `<tfoot>` rows
+    var tr = Array.prototype.slice.call(tb.rows, 0); // put rows into array
+    if (dtype === 'numeric') {
+        var fn = function(a, b) { 
+            return parseFloat(a.cells[n].textContent) <= parseFloat(b.cells[n].textContent) ? -1 : 1;
+        }
+    } else {
+        var fn = function(a, b) {
+            var c = a.cells[n].textContent.trim().localeCompare(b.cells[n].textContent.trim()); 
+            return c > 0 ? 1 : (c < 0 ? -1 : 0) }
+    }
+    var isSorted = function(array, fn) {
+        if (array.length < 2)
+            return 1;
+        var direction = fn(array[0], array[1]); 
+        for (var i = 1; i < array.length - 1; ++i) {
+            var d = fn(array[i], array[i+1]);
+            if (d == 0)
+                continue;
+            else if (direction == 0)
+                direction = d;
+            else if (direction != d)
+                return 0;
+            }
+        return direction;
+    }
+    var sorted = isSorted(tr, fn);
+    if (sorted == 1 || sorted == -1) {
+        // if sorted already, reverse it
+        for(var i = tr.length - 1; i >= 0; --i)
+            tb.appendChild(tr[i]); // append each row in order
+    } else {
+        tr = tr.sort(fn);
+        for(var i = 0; i < tr.length; ++i)
+            tb.appendChild(tr[i]); // append each row in order
+    }
+}
+</script>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+  // mark it active
+  menuAnchor.parent().addClass('active');
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+<div class="container-fluid main-container">
+<!-- tabsets -->
+<script src="../site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+
+
+<title>Codando Deep Learning</title>
+
+<style type = "text/css">
+body {
+  
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+</style>
+</head>
+
+<body>
+<div tabindex="-1" id="notebook" class="border-box-sizing">
+<div class="container" id="notebook-container">
+
+<!-- code folding -->
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../index.html">Codando Deep Learning</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+<li>
+  <a href="../notebooks.html">Notebooks</a>
+</li>
+        
+      </ul>
+        
+<ul class="nav navbar-nav navbar-right">
+<li>
+   <a href="http://github.com/mari-linhares/codando-deep-learning"> Github </a>
+</li>
+</ul>
+        
+      </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="1.7-Inicializa&#231;&#227;o-dos-Pesos">1.7 Inicializa&#231;&#227;o dos Pesos<a class="anchor-link" href="#1.7-Inicializa&#231;&#227;o-dos-Pesos">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Bem-vind@s-ao-mundo-estoc&#225;stico!">Bem vind@s ao mundo estoc&#225;stico!<a class="anchor-link" href="#Bem-vind@s-ao-mundo-estoc&#225;stico!">&#182;</a></h2><p>Vimos que redes neurais são um formadas por um conjunto de parâmetros chamados de <strong>pesos</strong> e <strong>bias</strong>.</p>
+<blockquote><p>Não confunda <strong>parâmetros</strong> com <strong>hiperparâmetros</strong>. Parâmetros são os valores que sua rede aprende (pesos e bias). Hiperparâmetros são os valores relacionados ao treinamento da sua rede: <em>learning rate</em>, número de camadas/neurônios, função de ativação de cada camada, etc...</p>
+</blockquote>
+<p>Nós também vimos que os pesos e bias são, em geral, inicializados com valores aleatórios. Por conta disso, é muito díficil que duas redes distintas chegem no mesmo resultado. Além disso, nós nunca teremos certeza que tal resultado é o melhor possível (mínimo global) e, dependendo dos valores iniciais, uma rede pode nunca convergir.</p>
+<p>Claro que, para evitar alguns desses problemas, nós podemos mexer nos hiperparâmetros como <em>learning rate</em>, o otimizador, adicionar momentum, entre outros. Se você não conhece sobre eles ainda, não se preocupe! Nós vamos falar sobre eles mais a frente nesse curso. Outra alternativa é inicializar os pesos de diferentes maneiras. E aí, vamos aprender sobre elas?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Inicializa&#231;&#227;o-com-Zeros">Inicializa&#231;&#227;o com Zeros<a class="anchor-link" href="#Inicializa&#231;&#227;o-com-Zeros">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>"Eu prefiro lutar em 0 graus, pois não é nem quente, nem frio!" <br> Maguila (ex-lutador de boxe)</p>
+</blockquote>
+<p>Baseado nesse pensamento, muitas pessoas já pensaram em inicializar os pesos com zero. Dessa forma, todos os pesos começarão com valores iguais, nenhum sendo mais importante que o outro, nem dando mais importância para um determinado atributo dos seus dados. Além disso, é muito simples fazer isso com numpy:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">pesos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">pesos</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[1]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Parece uma boa ideia, né? <font color='red'>**Errado!**</font> <strong>Essa é pior coisa que se pode fazer ao inicializar os pesos de uma rede neural!</strong> Parando para pensar um pouco melhor, fazendo isso nós vamos zerar todos os neurônios bem como os gradientes de aprendizagem. <strong>Se os gradientes são zeros, como a rede vai aprender alguma coisa, então?</strong> 
+Vale salientar que seus gradientes podem tender a zero por outras razões (que nós veremos depois). Mas, quando isso acontece, chamamos esse fenômeno de <strong>desaparecimento dos gradientes</strong> (<em>gradient vanishing</em>).</p>
+<p>Sem contar que você será mal visto pela sua família e amigos se inicializar seus pesos com zeros. Em outras palavras, não pense como o Maguila e não faça isso nunca!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Inicializa&#231;&#227;o-com-1s">Inicializa&#231;&#227;o com 1s<a class="anchor-link" href="#Inicializa&#231;&#227;o-com-1s">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Nesse momento, você deve estar pensando: "Tá bom, tá bom. Eu já entendi que inicializar todos os pesos com zero é ruim. Mas, e se inicializamos todos os pesos com 1s, então?"</p>
+<p>A resposta é: <strong>é tão ruim quanto!</strong> Pensando um pouquinho, lembra que na primeira camada todos os neurônios recebem as mesmas entradas? Então, se todos os neurônios receberam as mesmas entradas e todos eles tem o mesmo valor de peso (=1), o que que vai acontecer? Isso mesmo: <strong>todos os neurônios vão dar o mesmo resultado!</strong></p>
+<p>Ainda nessa linha de pensamento, como todos os neurônios vão da próxima camada vão receber o resultado de cada neurônio dessa camada (que são todos iguais), a mesma coisa vai se repetir. No fim das contas, você pode até ter um pouquinho de gradiente, mas os gradientes para os neurônios de uma mesma camada vão ser iguais. Assim, seus neurônios vão continuar sem aprender muita coisa.</p>
+<blockquote><p>Resumindo até aqui: <strong>não inicialize os seus neurônios com o mesmo valor, pior ainda se esse valor for igual a zero!</strong></p>
+</blockquote>
+<p>Se você entendeu isso, deve ter percebido que a melhor maneira de inicializar pesos é dando valores aleatórios para cada um deles. A pergunta agora é: será que é melhor uma variância baixa, alta? Será que a média deve ser zero? É melhor uma distribuição normal ou uniforme?</p>
+<p>É isso que vamos ver nas próximas seções.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Inicializa&#231;&#227;o-aleat&#243;ria-uniforme">Inicializa&#231;&#227;o aleat&#243;ria uniforme<a class="anchor-link" href="#Inicializa&#231;&#227;o-aleat&#243;ria-uniforme">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Inicializar os pesos aleatórios de forma uniforme (mesma probabilidade para todo mundo) é fácil com numpy:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">pesos_uniforme</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="o">-</span> <span class="mi">5</span> <span class="c1"># pesos entre -5 e 5</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">pesos_uniforme</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Repare que como os valores dos pesos têm praticamente uma mesma probabilidade de ocorrência (distribuição uniforme). <strong>Pesos como essa distribuição são bons para quebrar a simetria da rede e vão fazer sua rede aprender alguma coisa</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Inicializa&#231;&#227;o-aleat&#243;ria-normal">Inicializa&#231;&#227;o aleat&#243;ria normal<a class="anchor-link" href="#Inicializa&#231;&#227;o-aleat&#243;ria-normal">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pesos_normal</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span> <span class="c1"># média = 3 e desvio-padrão = 5</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">pesos_normal</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXQAAAD8CAYAAABn919SAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDMuMC4zLCBodHRwOi8vbWF0cGxvdGxpYi5vcmcvnQurowAAD0pJREFUeJzt3V2MXHd9xvHv04T0hReRkLVlJbgbKotCLwhoFVGlQkAIhKbCpiJVUFVt20juBSCiIhVDL9pKrWQuyouqlsollFUFhDQktQWU4rpBaaUqsA4pJJjIITXBxLWXlwhQJWjg14s9hpWz6zmzO7M78/f3I63OnDNnPI9H48f//c85Z1JVSJKm389sdQBJ0mhY6JLUCAtdkhphoUtSIyx0SWqEhS5JjbDQJakRFrokNcJCl6RGXLyZT3b55ZfX7OzsZj6lJE29o0ePfrOqZgbtt6mFPjs7y+Li4mY+pSRNvSRf67OfUy6S1AgLXZIaYaFLUiMsdElqhIUuSY2w0CWpERa6JDXCQpekRgws9CTPT/LAip/vJrk1yWVJDic53i0v3YzAkqTVDTxTtKoeBq4GSHIR8A3gbmAfcKSq9ifZ162/fYxZ1YDZfZ887/0n9t+4SUmk9gw75XId8NWq+hqwG1joti8Ae0YZTJI0nGEL/Wbgo93t7VV1CqBbbhtlMEnScHoXepJLgNcB/zjMEyTZm2QxyeLS0tKw+SRJPQ0zQn8tcH9Vne7WTyfZAdAtz6z2oKo6UFVzVTU3MzPw6o+SpHUaptDfyE+nWwAOAfPd7Xng4KhCSZKG16vQk/wCcD1w14rN+4Hrkxzv7ts/+niSpL56fcFFVf0v8Jxztn2L5aNeJEkTYFO/sUjaSuc7Bt7j39UCT/2XpEZY6JLUCAtdkhphoUtSIyx0SWqEhS5JjbDQJakRFrokNcJCl6RGWOiS1AgLXZIaYaFLUiMsdElqhIUuSY2w0CWpERa6JDXCQpekRljoktQIC12SGtGr0JM8O8mdSb6S5FiSX01yWZLDSY53y0vHHVaStLa+I/T3AZ+uql8GXgQcA/YBR6pqF3CkW5ckbZGBhZ7kWcDLgNsAquqHVfUEsBtY6HZbAPaMK6QkabA+I/TnAUvA3yf5QpIPJHk6sL2qTgF0y21jzClJGuDinvu8BHhLVd2X5H0MMb2SZC+wF2Dnzp3rCikBzO775HnvP7H/xk1KIk2mPiP0k8DJqrqvW7+T5YI/nWQHQLc8s9qDq+pAVc1V1dzMzMwoMkuSVjGw0Kvqf4CvJ3l+t+k64MvAIWC+2zYPHBxLQklSL32mXADeAnw4ySXAo8DvsfyfwR1JbgEeA24aT0RJUh+9Cr2qHgDmVrnrutHGkSStl2eKSlIjLHRJaoSFLkmNsNAlqRF9j3KRJt6gE4+k1jlCl6RGWOiS1AgLXZIaYaFLUiP8UFTaIK8CqUnhCF2SGmGhS1IjnHLRyHk8uLQ1HKFLUiMsdElqhFMuGppTKtJkcoQuSY2w0CWpEU65aKI4nSOtnyN0SWpErxF6khPA94AfAU9W1VySy4CPAbPACeC3quo744kpSRpkmBH6K6rq6qqa69b3AUeqahdwpFuXJG2RjUy57AYWutsLwJ6Nx5EkrVffQi/gM0mOJtnbbdteVacAuuW2cQSUJPXT9yiXa6vq8STbgMNJvtL3Cbr/APYC7Ny5cx0RJUl99BqhV9Xj3fIMcDdwDXA6yQ6AbnlmjcceqKq5qpqbmZkZTWpJ0lMMLPQkT0/yzLO3gVcDDwKHgPlut3ng4LhCSpIG6zPlsh24O8nZ/T9SVZ9O8nngjiS3AI8BN40vprS1POFJ02BgoVfVo8CLVtn+LeC6cYSSJA3PM0UlqREWuiQ1wkKXpEZY6JLUCC+fq6fwiA5pOjlCl6RGWOiS1AinXCTGO8006M8+sf/GsT23LiyO0CWpERa6JDXCQpekRljoktQIC12SGmGhS1IjLHRJaoSFLkmNsNAlqREWuiQ1wkKXpEZY6JLUiN6FnuSiJF9I8olu/aok9yU5nuRjSS4ZX0xJ0iDDXG3xrcAx4Fnd+ruA91TV7Un+FrgFeP+I82lM/BILqT29RuhJrgRuBD7QrQd4JXBnt8sCsGccASVJ/fSdcnkv8EfAj7v15wBPVNWT3fpJ4IoRZ5MkDWFgoSf5DeBMVR1duXmVXWuNx+9NsphkcWlpaZ0xJUmD9BmhXwu8LskJ4HaWp1reCzw7ydk5+CuBx1d7cFUdqKq5qpqbmZkZQWRJ0moGFnpVvaOqrqyqWeBm4N+q6reBe4A3dLvNAwfHllKSNNBGjkN/O/CHSR5heU79ttFEkiStx1BfEl1VnwU+291+FLhm9JEkSevhmaKS1AgLXZIaYaFLUiMsdElqhIUuSY2w0CWpERa6JDXCQpekRljoktQIC12SGjHUqf+SRu983x51Yv+Nm5hE084RuiQ1wkKXpEY45SJNsEFf5u2UjFZyhC5JjbDQJakRFrokNcJCl6RG+KGoNMU8hl0rOUKXpEZY6JLUiIGFnuTnknwuyX8leSjJn3Xbr0pyX5LjST6W5JLxx5UkraXPCP0HwCur6kXA1cANSV4KvAt4T1XtAr4D3DK+mJKkQQYWei37frf6tO6ngFcCd3bbF4A9Y0koSeql1xx6kouSPACcAQ4DXwWeqKonu11OAles8di9SRaTLC4tLY0isyRpFb0Kvap+VFVXA1cC1wAvWG23NR57oKrmqmpuZmZm/UklSec11FEuVfUE8FngpcCzk5w9jv1K4PHRRpMkDWPgiUVJZoD/q6onkvw88CqWPxC9B3gDcDswDxwcZ1ANZ9BV+iS1p8+ZojuAhSQXsTyiv6OqPpHky8DtSf4c+AJw2xhzSpIGGFjoVfVF4MWrbH+U5fl0SdIE8ExRSWqEhS5JjbDQJakRFrokNcJCl6RGWOiS1AgLXZIaYaFLUiMsdElqhIUuSY2w0CWpERa6JDXCQpekRljoktQIC12SGmGhS1IjLHRJaoSFLkmNsNAlqREWuiQ1YmChJ3luknuSHEvyUJK3dtsvS3I4yfFueen440qS1nJxj32eBN5WVfcneSZwNMlh4HeBI1W1P8k+YB/w9vFF1blm931yqyNImiADR+hVdaqq7u9ufw84BlwB7AYWut0WgD3jCilJGqzPCP0nkswCLwbuA7ZX1SlYLv0k29Z4zF5gL8DOnTs3klXSEAb9Bndi/42blESbpfeHokmeAXwcuLWqvtv3cVV1oKrmqmpuZmZmPRklST30KvQkT2O5zD9cVXd1m08n2dHdvwM4M56IkqQ++hzlEuA24FhVvXvFXYeA+e72PHBw9PEkSX31mUO/Fvgd4EtJHui2vRPYD9yR5BbgMeCm8USUJPUxsNCr6j+ArHH3daONI0laL88UlaRGWOiS1AgLXZIaMdSJRRotT92XNEqO0CWpERa6JDXCQpekRljoktQIC12SGuFRLtIFysvrtscRuiQ1wkKXpEZY6JLUCAtdkhphoUtSIzzKZcy8XoukzeIIXZIaYaFLUiMsdElqhIUuSY0YWOhJPpjkTJIHV2y7LMnhJMe75aXjjSlJGqTPCP1DwA3nbNsHHKmqXcCRbl2StIUGFnpV3Qt8+5zNu4GF7vYCsGfEuSRJQ1rvHPr2qjoF0C23jS6SJGk9xv6haJK9SRaTLC4tLY376STpgrXeQj+dZAdAtzyz1o5VdaCq5qpqbmZmZp1PJ0kaZL2FfgiY727PAwdHE0eStF59Dlv8KPCfwPOTnExyC7AfuD7JceD6bl2StIUGXpyrqt64xl3XjTiLJGkDvNriAF4tUReq8733/b7RyeSp/5LUCAtdkhrhlAtOq0jDGvRvximZreEIXZIaYaFLUiMuiCkXp1Sk6eF0zvo5QpekRljoktSIqZly8dcwSTo/R+iS1AgLXZIaYaFLUiMsdElqhIUuSY2YmqNcBvHkIWlyTOpRaZOaa1QcoUtSIyx0SWqEhS5JjbDQJakRGyr0JDckeTjJI0n2jSqUJGl46z7KJclFwF8D1wMngc8nOVRVXx5VOEk61ziPaNvIF2NPwpdqb2SEfg3wSFU9WlU/BG4Hdo8mliRpWBsp9CuAr69YP9ltkyRtgY2cWJRVttVTdkr2Anu71e8neXgDz9nX5cA3N+F5xmGas8N055/m7DBF+fOup2ya+OyrZF7pvPkHPLaPX+yz00YK/STw3BXrVwKPn7tTVR0ADmzgeYaWZLGq5jbzOUdlmrPDdOef5uww3fmnOTtMTv6NTLl8HtiV5KoklwA3A4dGE0uSNKx1j9Cr6skkbwb+BbgI+GBVPTSyZJKkoWzo4lxV9SngUyPKMkqbOsUzYtOcHaY7/zRnh+nOP83ZYULyp+opn2NKkqaQp/5LUiOaKfQkNyV5KMmPk8ydc987ussTPJzkNVuVsa8kf5rkG0ke6H5+faszDTLtl4FIciLJl7rXe3Gr8wyS5INJziR5cMW2y5IcTnK8W166lRnXskb2qXjPJ3luknuSHOv65q3d9ol47ZspdOBB4DeBe1duTPJClo/A+RXgBuBvussWTLr3VNXV3c8kfk7xEysuA/Fa4IXAG7vXfdq8onu9t/zwsx4+xPL7eaV9wJGq2gUc6dYn0Yd4anaYjvf8k8DbquoFwEuBN3Xv9Yl47Zsp9Ko6VlWrnbS0G7i9qn5QVf8NPMLyZQs0Ol4GYpNV1b3At8/ZvBtY6G4vAHs2NVRPa2SfClV1qqru725/DzjG8hnyE/HaN1Po5zGtlyh4c5Ivdr+eTuSvzitM62u8UgGfSXK0O7t5Gm2vqlOwXDzAti3OM6xpes+TZBZ4MXAfE/LaT1WhJ/nXJA+u8nO+0WCvSxRstgF/l/cDvwRcDZwC/nJLww42ka/xkK6tqpewPG30piQv2+pAF5ipes8neQbwceDWqvruVuc5a6q+JLqqXrWOh/W6RMFm6/t3SfJ3wCfGHGejJvI1HkZVPd4tzyS5m+VppHvP/6iJczrJjqo6lWQHcGarA/VVVafP3p7093ySp7Fc5h+uqru6zRPx2k/VCH2dDgE3J/nZJFcBu4DPbXGm8+reEGe9nuUPfCfZVF8GIsnTkzzz7G3g1Uz+a76aQ8B8d3seOLiFWYYyLe/5JAFuA45V1btX3DURr30zJxYleT3wV8AM8ATwQFW9prvvj4HfZ/kT6lur6p+3LGgPSf6B5V89CzgB/MHZ+blJ1R1m9l5+ehmIv9jiSL0leR5wd7d6MfCRSc+f5KPAy1m+yt9p4E+AfwLuAHYCjwE3VdXEffi4RvaXMwXv+SS/Bvw78CXgx93md7I8j77lr30zhS5JF7oLYcpFki4IFrokNcJCl6RGWOiS1AgLXZIaYaFLUiMsdElqhIUuSY34f7ZdDfK96BcNAAAAAElFTkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Diferente da distribuição uniforme, os pesos agora são inicializados por uma distribuição normal, isto é, com certa média e desvio padrão. Ou seja, pesos mais próximos da média são mais comuns e quanto mais "desvios-padrões" além da média, menor a probabilidade. Da mesma forma que a distribuição uniforme, <strong>pesos com essa distribuição também são bons para quebrar a simetria da rede</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Inicializa&#231;&#227;o-Glorot-Uniforme">Inicializa&#231;&#227;o Glorot Uniforme<a class="anchor-link" href="#Inicializa&#231;&#227;o-Glorot-Uniforme">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A gente viu que inicilizar os pesos com uma distribuição normal ou uniforme é uma boa ideia. Entretanto, elas apresentam um defeito: <strong>como definir a faixa de valores que meus pesos vão assumir?</strong> Em outras palavras, qual deve ser a variância dos meus pesos? Quanto menor sua variância, maiores são as chances de acontecer o <em>vanishing</em> dos gradientes - e a gente já viu que isso não é bom. Por outro lado, quando a variância é muito grande, o contrário acontece. Isto é, seus gradientes vão tender ao infinito. Nesse caso, damos o nome de <strong>explosão dos gradientes</strong> (<em>exploding gradients</em>). Portanto, tenha em mente o seguinte:</p>
+<blockquote><p>O que buscamos na inicialização de pesos são <strong>valores pequenos com variância ok</strong> (pequena, mas nem tanto)</p>
+</blockquote>
+<p>Porém, não existe um número mágico para variância dos pesos. Ela vai depender principalmente da quantidade de pesos que a sua rede tem, ou seja, depende da arquitetura da sua rede. O ideal seria que a variância dos pesos fosse definida automaticamente. Ahhh, ia ser tão bom se existisse um método que fizesse isso para gente, né? E existe!!!</p>
+<p>A <strong>Glorot Uniforme</strong>, também conhecida como <strong>Xavier Uniforme</strong>, é uma distribuição uniforme que leva em consideração a quantidade de neurônios da camada atual e anterior da sua rede. Na prática, os pesos são inicializados baseados na seguinte fórmula:</p>
+$$w = 2*\sigma*rand() - \sigma$$<p>onde,</p>
+$$\sigma = \sqrt{\frac{6}{in + out}}$$<p>Supondo que a camada atual tem 5 neurônios e a camada anterior tinha 3, a implementação em Python ficaria dessa forma:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="c1"># para que o seu resultado seja igual ao meu :)</span>
+
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">pesos</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">sigma</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pesos</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[-0.21730289  0.78066008  0.40182529]
+ [ 0.17088151 -0.59579319 -0.59583497]
+ [-0.76542164  0.63423569  0.17513634]
+ [ 0.36039228 -0.83037201  0.81390774]
+ [ 0.57580754 -0.49824328 -0.55109532]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Inicializa&#231;&#227;o-Glorot-Normal">Inicializa&#231;&#227;o Glorot Normal<a class="anchor-link" href="#Inicializa&#231;&#227;o-Glorot-Normal">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A <strong>Glorot Normal</strong>, também conhecida como <strong>Xavier Normal</strong>, é bem parecida com a sua irmã uniforme. A diferença, na verdade, é que agora vamos fazer a amostragem dos pesos baseado numa distribuição normal <del>(não diga!)</del>, também levando em consideração a quantidade de neurônios da camada atual e anterior:</p>
+$$w = \sigma * randN()$$<p>também teremos uma pequena diferençazinha no $\sigma$:</p>
+$$\sigma = \sqrt{\frac{2}{in + out}}$$<p>Em Python, considerando a mesma rede com 5 e 3 neurônios:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="c1"># mesma semente do exemplo anterior para gente comparar os pesos</span>
+
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">pesos</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pesos</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[ 0.24835708 -0.06913215  0.32384427]
+ [ 0.76151493 -0.11707669 -0.11706848]
+ [ 0.78960641  0.38371736 -0.23473719]
+ [ 0.27128002 -0.23170885 -0.23286488]
+ [ 0.12098114 -0.95664012 -0.86245892]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pronto! Agora você sabe tudo sobre inicialização de pesos em redes neurais. Provavelmente, a sua única dúvida na cabeça agora é: <strong>da onde vem o $2$ e $6$ nas fórmulas do $\sigma$ das distribuições Glorot?</strong> A verdade é que, no <a href="http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf">artigo original</a>, os autores testaram diversos valores em diversas redes e simplesmente esses valores levaram aos melhores resultados. É, meus amigos e amigas, esse é o mundo da redes neurais: tentativa e erro!</p>
+
+</div>
+</div>
+</div>
+<hr>
+&copy; 2019 Marianne Linhares, Arnaldo Gualberto
+
+</div>
+</div>
+</body>
+</html>
