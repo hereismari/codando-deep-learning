@@ -11,10 +11,9 @@ Este repositório contém o código utilizado para o curso [Codando Deep Learnin
 
 Implementações de conceitos relacionados com Machine Learning e Deep Learning do zero!
 
+**Contribuições são muito bem vindas!**
+
 Repositório com código para o tutorial *Codando Deep Learning*. Este repositório contém conceitos relacionados com Machine Learning e Deep Learning implementados em Jupyter notebooks utilizando Python 3. O código é feito para facilitar o ensino e aprendizado.
-
-Contribuições são muito bem vindas!
-
 
 ## Rodando localmente
 
