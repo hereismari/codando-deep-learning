@@ -192,7 +192,8 @@ body {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="1.3-Introdu&#231;&#227;o-a-Redes-Neurais:-como-aprendem?">1.3 Introdu&#231;&#227;o a Redes Neurais: como aprendem?<a class="anchor-link" href="#1.3-Introdu&#231;&#227;o-a-Redes-Neurais:-como-aprendem?">&#182;</a></h1>
+<h1 id="1.3-Introdu&#231;&#227;o-a-Redes-Neurais:-como-aprendem?">1.3 Introdu&#231;&#227;o a Redes Neurais: como aprendem?<a class="anchor-link" href="#1.3-Introdu&#231;&#227;o-a-Redes-Neurais:-como-aprendem?">&#182;</a></h1><p>Nesta seção iremos introduzir o algoritmo responsável pelo aprendizado das redes neurais chamado <a href="">Gradiente Descendente</a>.</p>
+
 </div>
 </div>
 </div>
@@ -627,6 +628,15 @@ $$\frac{\partial L}{\partial w_i} = 1/n * \sum{(y_i - ŷ_i)} * x_j $$$$\frac{\pa
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>⚠️ <strong>Cuidado: não confunda parâmetro com hiperparâmetros!</strong> Parâmetros são o que a sua rede usa para aprender (pesos e bias), enquanto hiperparâmetros são o que você define acerca da sua rede (número de camadas, qtde. de neurônios por camada, função de ativação de cada camada, etc...)</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Uma-fun&#231;&#227;o-um-pouco-mais-complicada">Uma fun&#231;&#227;o um pouco mais complicada<a class="anchor-link" href="#Uma-fun&#231;&#227;o-um-pouco-mais-complicada">&#182;</a></h3><p>$Y = 7 * log(x) + 1$</p>
 
 </div>
@@ -1002,18 +1012,15 @@ $$\frac{\partial L}{\partial w_i} = 1/n * \sum{(y_i - ŷ_i)} * x_j $$$$\frac{\pa
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Refer&#234;ncias">Refer&#234;ncias<a class="anchor-link" href="#Refer&#234;ncias">&#182;</a></h2><ul>
+<li><a href="https://matheusfacure.github.io/2017/02/20/MQO-Gradiente-Descendente/">Blog do Matheus Facure sobre Gradiente Descendente (10/10)</a></li>
+</ul>
 
-    </div>
 </div>
 </div>
-
 </div>
 <hr>
 &copy; 2019 Marianne Linhares, Arnaldo Gualberto
